@@ -1,0 +1,23 @@
+.image-preview-wrapper {
+    width: 200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.image-preview-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.image-preview-img {
+    display: block;
+    margin: 0 auto;
+    transition: opacity 0.3s ease;
+}
+
+.image-preview-img.loading {
+    opacity: 0.3;
+}

@@ -1,0 +1,114 @@
+/* ─────────────────────────────────────────────────────────────
+   global.css — minimal resets only, no component styles
+───────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Light mode body defaults */
+body.light {
+    background-color: #F4F6FA;
+    color: #1a1f3c;
+}
+
+/* Dark mode body defaults */
+body.dark {
+    background-color: #0F1117;
+    color: #E8ECFF;
+}
+
+button {
+    font-family: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Global Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body.light ::-webkit-scrollbar-thumb {
+    background: #C5CCDA;
+    border-radius: 999px;
+}
+
+body.light ::-webkit-scrollbar-thumb:hover {
+    background: #AEB7C8;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    background: #3A4254;
+    border-radius: 999px;
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover {
+    background: #505A70;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+}
+
+body.light * {
+    scrollbar-color: #C5CCDA transparent;
+}
+
+body.dark * {
+    scrollbar-color: #3A4254 transparent;
+}
+
+
+/* ── Responsive: 1 month on small screens ───────────── */
+@media (max-width: 991px) {
+    .dark-range-picker .ant-picker-panels {
+        flex-direction: column;
+        /* stack months vertically */
+    }
+
+    .dark-range-picker .ant-picker-panel-container {
+        width: 100vw;
+        max-width: 320px;
+    }
+
+    /* Hide second panel — show 1 month only */
+    .dark-range-picker .ant-picker-panels>*:last-child {
+        display: none;
+    }
+
+    .dark-range-picker .ant-picker-panel {
+        width: 100%;
+    }
+}

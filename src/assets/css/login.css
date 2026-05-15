@@ -1,0 +1,48 @@
+/* Global reset only inside login */
+.login-main-cover *,
+.login-main-cover *::before,
+.login-main-cover *::after { padding: 0; margin: 0; box-sizing: border-box; }
+/* Background */
+.login-main-cover { background-color: #ffffff; min-height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; /* overflow: hidden; */ }
+/* Circle background container */
+.login-main-cover .login-background { width: 430px; height: 0; position: absolute; transform: translate(-50%, -50%); left: 50%; top: 0; z-index: 99; }
+.login-main-cover .login-background .login-shape { height: 150px; width: 150px; position: absolute; border-radius: 50%; z-index: 99; }
+.login-main-cover .login-shape:first-child { /* background: #fff; */ left: -50px; top: -70px; }
+/* Login form */
+.login-main-cover form { height: 520px; width: 400px; border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.1); z-index: 1; box-shadow: 0 0 4px rgb(213 213 213); padding: 50px 35px; margin: 40px 0; background: #FBFBFB; }
+/* All form elements */
+.login-main-cover form * { font-family: "Poppins", sans-serif; color: #000; letter-spacing: 0.5px; outline: none; border: none; }
+/* Title */
+.login-main-cover form h3 { font-size: 32px; font-weight: 500; line-height: 42px; text-align: center; color: #4a69c6; }
+/* Labels */
+.login-main-cover label { display: block; margin-top: 30px; font-size: 16px; font-weight: 500; color:#4a69c6 !important; }
+/* Inputs */
+.login-main-cover input[type='text'], .login-main-cover input[type='password'] { color: #000; }
+.login-main-cover input { display: block; height: 50px; width: 100%; background: #fff; border-radius: 3px; padding: 0 10px; margin-top: 8px; font-size: 14px; font-weight: 300; border: 1px solid #b4b4b4; }
+.login-main-cover ::placeholder { color: black; font-weight: 400; }
+/* Button */
+.login-main-cover button { margin-top: 50px; width: 100%; background: linear-gradient(120deg, #00e4d0, #5983e8); color: #ffffff; padding: 15px 0; font-size: 18px; font-weight: 600; border-radius: 5px; cursor: pointer; }
+/* Logo inside circle */
+.login-main-cover .login-shape img { position: relative; margin-left: 27px; margin-top: 28px; }
+/* Social buttons (if needed) */
+.login-main-cover .login-social { margin-top: 30px; display: flex; }
+.login-main-cover .login-social div { background: red; width: 150px; border-radius: 3px; padding: 5px 10px 10px 5px; background-color: rgba(255, 255, 255, 0.27); color: #eaf0fb; text-align: center; }
+.login-main-cover .login-social div:hover { background-color: rgba(255, 255, 255, 0.47); }
+.login-main-cover .login-social .login-fb { margin-left: 25px; }
+.login-main-cover .login-social i { margin-right: 4px; }
+.password-wrapper { position: relative; }
+.password-wrapper input { width: 100%; padding-right: 40px; }
+.password-eye { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); cursor: pointer; color: #666; font-size: 18px; }
+.password-eye:hover { color: #000; }
+
+
+@media (max-width: 575px) {
+.login-main-cover{overflow: hidden;}
+.login-main-cover .login-shape img{display: none;}
+.login-main-cover form{padding: 20px;margin: 10px;width: 100%;height: 325px;}
+.login-main-cover form h3{font-size: 20px;}
+.login-main-cover label{margin-top: 15px;font-size: 14px;}
+.login-main-cover input{height: 35px;}
+.login-main-cover button{margin-top: 25px;font-size: 14px; padding: 8px;}
+     
+}
