@@ -361,7 +361,6 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                                             {symbols.length > 0 ? (
                                                 symbols.map((symbol, idx) => (
                                                     <SortableRow key={symbol.id} id={symbol.id}>
-                                                        {/* <Tr $alt={idx % 2 === 1}> */}
                                                         <SymbolRow
                                                             symbol={symbol}
                                                             rowSaveId={actionLoading.rowSaveId}
@@ -371,7 +370,6 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                                                             openModal={openModal}
                                                             handleDeleteSymbol={handleDeleteSymbol}
                                                         />
-                                                        {/* </Tr> */}
                                                     </SortableRow>
                                                 ))
                                             ) : (

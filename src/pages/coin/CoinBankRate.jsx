@@ -247,11 +247,11 @@ const CoinBankRate = () => {
   }
 
   return (
-    <>
+    <div>
       <LiverateSocket />
-      <BankCard>
+      <BankCard >
         <BankCardHeader>
-          <BankTitle>Coin Rate</BankTitle>
+          <BankTitle>Bank Rate</BankTitle>
         </BankCardHeader>
 
         {bankRateSource?.length > 0 ? (
@@ -312,7 +312,7 @@ const CoinBankRate = () => {
           </EmptyStateWrapper>
         )}
       </BankCard>
-    </>
+    </div>
   );
 };
 

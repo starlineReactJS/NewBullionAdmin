@@ -20,6 +20,8 @@ import {
   EmptyStateWrapper,
   fluidType,
 } from "../../styledComponents";
+import { Spinner } from "react-bootstrap";
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Styled Components
@@ -34,16 +36,6 @@ const spin = keyframes`
 const DraggableTh = styled(Th)`
   cursor: grab;
   user-select: none;
-  transition: background 0.15s ease, color 0.15s ease;
-  &:active { cursor: grabbing; }
-
-  /* Drag handle hint on hover */
-  &:hover::after {
-    content: "⠿";
-    margin-left: 6px;
-    opacity: 0.5;
-    font-size: 10px;
-  }
 `;
 
 const FooterRow = styled.div`
@@ -54,15 +46,6 @@ const FooterRow = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
   border-top: 1px solid ${({ theme }) => theme.colors.divider};
   min-height: 44px;
-`;
-
-const Spinner = styled.div`
-  width: 22px;
-  height: 22px;
-  border: 2px solid ${({ theme }) => theme.colors.primaryLight};
-  border-top-color: ${({ theme }) => theme.colors.primary};
-  border-radius: 50%;
-  animation: ${spin} 0.7s linear infinite;
 `;
 
 const EndOfResults = styled.p`
@@ -86,7 +69,7 @@ const CellContent = styled.div`
   p {
     margin: 0;
     font-family: ${({ theme }) => theme.font.family};
-    ${fluidType("bodySm")}
+    ${fluidType("h4")}
     color: ${({ theme }) => theme.colors.textPrimary};
   }
 `;
@@ -173,9 +156,9 @@ const SortableTable = ({
             <Tr key={index}>
               {visibleCols.map((col) => (
                 <Td key={col}>
-                  {/* <CellContent> */}
+                  <CellContent>
                     {columnRender(col, item, mode)}
-                  {/* </CellContent> */}
+                  </CellContent>
                 </Td>
               ))}
             </Tr>
@@ -215,10 +198,9 @@ const SortableTable = ({
         )}
       </TableWrapper>
       {/* Footer: spinner or end-of-results */}
-      {console.log(hasMore,data)}
       {(isFetchingMore || (!hasMore && data?.length > 0)) && (
         <FooterRow>
-          {isFetchingMore && !isLoading && <Spinner />}
+          {isFetchingMore  && <Spinner animation="border" variant="info"/>}
           {!hasMore && data?.length > 0 && !isFetchingMore && (
             <EndOfResults>End of results</EndOfResults>
           )}

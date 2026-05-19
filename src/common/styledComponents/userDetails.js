@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {
- fluidType
+  fluidType
 } from "./index";
 
 export const SectionCard = styled.div`
@@ -299,4 +299,26 @@ export const DeleteBannerBtn = styled.button`
   transition: ${({ theme }) => theme.transition};
  
   &:hover { transform: scale(1.1); }
+`;
+
+export const RateToggleGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.md};
+  justify-content: space-around;
+  padding: ${({ theme }) => theme.spacing.md} 0;
+`;
+
+export const RateItemToggle = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: ${({ theme }) => theme.font.family};
+  font-size: ${({ theme }) => theme.font.sizeLg};
+  color: ${({ theme }) => theme.colors.textPrimary};
+  cursor: pointer;
+
+  .ant-switch-checked {
+    background-color: ${({ theme }) => theme.colors.primary};
+  }
 `;

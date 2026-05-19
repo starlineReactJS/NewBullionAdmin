@@ -24,12 +24,12 @@ const BankInput = styled(Input)`
 // Reuse shared Select pattern
 const BankSelect = styled.select`
   width: 100%;
-  background: ${({ theme }) => theme.colors.bgInput};
+  background:rgba(255, 255, 255, 0.1);
   border: 1px solid ${({ theme }) => theme.colors.borderInput};
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("bodySm")}
+ ${fluidType("bodyLg")}
   font-weight: ${({ theme }) => theme.font.weightMedium};
   padding: 4px 6px;
   outline: none;
@@ -42,14 +42,10 @@ const BankSelect = styled.select`
     color: ${({ theme }) => theme.colors.textPrimary};
   }
  
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.borderInputFocus};
-    box-shadow: ${({ theme }) => theme.colors.shadowInput};
-  }
 `;
 
 const InrValue = styled.p`
-  ${fluidType("bodySm")}
+  ${fluidType("bodyLg")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.primary};
@@ -70,7 +66,7 @@ const TotalValue = styled.h6`
 const SubmitBtn = styled(PrimaryButton)`
   width: 100%;
   padding: 6px 10px;
-  font-size: ${({ theme }) => theme.font.sizeSm};
+  font-size: ${({ theme }) => theme.font.sizeLg};
   margin: 4px 0;
 `;
 

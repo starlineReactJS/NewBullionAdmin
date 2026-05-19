@@ -21,7 +21,9 @@ import {
   SecondaryButton,
   IconButton,
   CellText,
+  CardScrollBody,
 } from "../../../common/styledComponents";
+import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -38,6 +40,8 @@ const ViewImgBtn = styled(SecondaryButton)`
   font-size: ${({ theme }) => theme.font.sizeXs};
 `;
 const SubCategory = () => {
+    const scrollRef = React.useRef(null);
+
   const visibleColumns = useMemo(() => ({
     Type: true, Category: true, SubCategory: true, Image: true, Edit: true, Delete: true,
   }), []);
@@ -45,7 +49,7 @@ const SubCategory = () => {
   const dispatch = useDispatch();
 
   const { data: subCategoryLists, isLoading, setData, setReset } =
-    useInfiniteScroll(getCategoryDetail, REQUEST, 40);
+    useInfiniteScroll(getCategoryDetail, REQUEST, 40,scrollRef);
 
   const [newSubCategory, setNewSubCategory] = useState({ ...SUB_CATEGORY_OBJ });
   const [popUp,          setPopUp]          = useState({ ...POPUP_OBJ });
@@ -210,13 +214,14 @@ const SubCategory = () => {
 
   return (
     <PageWrapper>
-      <Card>
+      <ScrollCard>
         <ActionBar>
           <ActionGroup>
             <PrimaryButton onClick={openModal}>+ Add Sub Category</PrimaryButton>
           </ActionGroup>
         </ActionBar>
 
+    <CardScrollBody ref={scrollRef}>
         <SortableTable
           data={subCategoryLists}
           columnOrder={COLUMN_ORDER}
@@ -225,7 +230,8 @@ const SubCategory = () => {
           enableColumnDrag={false}
           columnRender={columnRender}
         />
-      </Card>
+    </CardScrollBody>
+      </ScrollCard>
 
       {popUp?.showPopup && (
         <CommonModal

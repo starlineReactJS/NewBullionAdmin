@@ -28,8 +28,18 @@ import {
   DateText,
   ModalFooter,
   FormTableBody,
-  FormTable
+  FormTable,
+  CardScrollBody,
 } from "../../common/styledComponents";
+import styled from "styled-components";
+
+
+export const ScrollCard = styled(PageWrapper)`
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+`;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants
@@ -48,18 +58,18 @@ const Update = () => {
     columnOrder, visibleColumns, setVisibleColumns,
     activeId, setActiveId, handleDragEnd,
   } = useColumnManager("update", APPROVE_COLUMNS);
-
+  const scrollRef = React.useRef(null);
   const [request, setRequest] = useState({});
   const {
     data: updateLists, isLoading, isFetchingMore,
     hasMore, setData, setReset,
-  } = useInfiniteScroll(getUpdateDetails, request, 40);
+  } = useInfiniteScroll(getUpdateDetails, request, 40,scrollRef);
 
-  const [newUpdate, setNewUpdate]       = useState({ ...INITIAL_UPDATE });
-  const [showModal, setShowModal]       = useState(false);
-  const [disableButton, setIsDisableButton]     = useState(false);
+  const [newUpdate, setNewUpdate] = useState({ ...INITIAL_UPDATE });
+  const [showModal, setShowModal] = useState(false);
+  const [disableButton, setIsDisableButton] = useState(false);
   const [excelModelLoading, setIsExcelModelLoading] = useState(false);
-  const [errors, setErrors]             = useState({});
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
   const openModal = () => {
@@ -103,8 +113,8 @@ const Update = () => {
 
   const validate = useCallback(() => {
     const error = {};
-    if (!newUpdate.title.trim())       error.title       = "Please enter title";
-    if (!newUpdate.message.trim())     error.message     = "Please enter message";
+    if (!newUpdate.title.trim()) error.title = "Please enter title";
+    if (!newUpdate.message.trim()) error.message = "Please enter message";
     if (!newUpdate.description.trim()) error.description = "Please enter description";
     setErrors(error);
     return Object.keys(error).length > 0;
@@ -222,20 +232,20 @@ const Update = () => {
   ]);
 
   const validExportData = useMemo(() => ({
-    message:      visibleColumns?.Message,
-    title:        visibleColumns?.Title,
-    description:  visibleColumns?.Description,
+    message: visibleColumns?.Message,
+    title: visibleColumns?.Title,
+    description: visibleColumns?.Description,
     modifiedDate: visibleColumns?.Date,
   }), [visibleColumns]);
 
   return (
     <PageWrapper>
-      <Card>
+      <ScrollCard>
         <ActionBar>
           <div>
             {/* <PageTitle>Updates</PageTitle>
             <SectionLabel>Manage &amp; broadcast system updates</SectionLabel> */}
-              <PrimaryButton onClick={openModal}>
+            <PrimaryButton onClick={openModal}>
               + Add Update
             </PrimaryButton>
           </div>
@@ -258,8 +268,10 @@ const Update = () => {
         {/* ── Toolbar ── */}
 
         {/* ── Table ── */}
-        {renderTable(updateLists)}
-      </Card>
+        <CardScrollBody ref={scrollRef}>
+          {renderTable(updateLists)}
+        </CardScrollBody>
+      </ScrollCard>
 
       {/* ── Add Update Modal ── */}
       {showModal && (

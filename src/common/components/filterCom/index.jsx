@@ -224,7 +224,11 @@ const FilterComponent = ({
           value={dates}
           onChange={(values) => setDates(values)}
           format="DD-MM-YYYY"
-          popupClassName="dark-range-picker" 
+          classNames={{
+            popup: {
+              root: "dark-range-picker",
+            },
+          }}
         />
 
         {/* ── Search ── */}

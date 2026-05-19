@@ -19,7 +19,7 @@ const ProductName = styled.strong`
   ${fluidType("bodySm")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
-  color: ${({ theme }) => theme.colors.textTableHeader};
+  color: ${({ theme }) => theme.colors.textPrimary};
   text-align: center;
   margin-bottom: 6px;
   letter-spacing: 0.3px;
@@ -29,11 +29,11 @@ const ProductName = styled.strong`
 const SpotSelect = styled.select`
   width: 100%;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid ${({ theme }) => theme.colors.borderInput};
   border-radius: ${({ theme }) => theme.radius.sm};
-  color: ${({ theme }) => theme.colors.textTableHeader};
+color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("caption")}
+  ${fluidType("bodyLg")}
   font-weight: ${({ theme }) => theme.font.weightMedium};
   padding: 4px 6px;
   cursor: pointer;
@@ -47,7 +47,7 @@ const SpotSelect = styled.select`
   }
  
   &:focus {
-    border-color: rgba(255, 255, 255, 0.6);
+   border-color: ${({ theme }) => theme.colors.borderInputFocus};
     background: rgba(255, 255, 255, 0.18);
   }
 `;
@@ -56,7 +56,7 @@ const SpotValue = styled.p`
   ${fluidType("bodySm")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
-  color:#FFFFFF;
+  color: ${({ theme }) => theme.colors.textPrimary};
   text-align: center;
   margin: 0;
   letter-spacing: 0.5px;
@@ -69,7 +69,7 @@ const BankRateSpotHeader = memo(({
     onChange
 }) => {
     return (
-        <Tr  $alt={true} >
+        <Tr>
             <EmptyHeaderTh as="th" />
             {bankRateSource.map((m) => {
                 const metal = getMetalType(m.value);

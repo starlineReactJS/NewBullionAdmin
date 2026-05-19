@@ -56,7 +56,7 @@ const shared = {
   },
 
   font: {
-    family:         "'DM Sans', 'Segoe UI', sans-serif",
+    family:         "'Inter', sans-serif",
     // static aliases kept for backwards compat
     sizeXs:         "11px",
     sizeSm:         "12px",

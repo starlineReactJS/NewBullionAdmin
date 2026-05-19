@@ -114,7 +114,7 @@ const useIsMobile = (breakpoint = 768) => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const AdminBullionLayout = () => {
-  const [desktopOpen, setDesktopOpen] = useState(false);
+  const [desktopOpen, setDesktopOpen] = useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const localTheme = localStorage.getItem("theme");
@@ -142,7 +142,7 @@ const AdminBullionLayout = () => {
   }, []);
 
   useEffect(() => {
-    setDesktopOpen(false);
+    setDesktopOpen(true);
     setMobileDrawerOpen(false);
   }, [isMobile]);
 
@@ -182,7 +182,7 @@ const AdminBullionLayout = () => {
                 open={mobileDrawerOpen}
                 onClose={() => setMobileDrawerOpen(false)}
                 placement="left"
-                width={240}
+                size={240}
                 closable={false}
                 className="sidebar-mobile-drawer"
                 maskClosable={true}

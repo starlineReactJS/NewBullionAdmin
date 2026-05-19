@@ -102,7 +102,7 @@ const MenuItem = styled.button`
   font-family: ${({ theme }) => theme.font.family};
   font-size: ${({ theme }) => theme.font.sizeLg};
   font-weight: ${({ $active, theme }) =>
-    $active ? theme.font.weightSemiBold : theme.font.weightMedium};
+    $active ? theme.font.weightSemiBold : theme.font.weightBold};
   cursor: pointer;
   transition: ${({ theme }) => theme.transition};
   position: relative;
@@ -178,7 +178,7 @@ const SubItem = styled.button`
   font-family: ${({ theme }) => theme.font.family};
   font-size: ${({ theme }) => theme.font.sizeMd};
   font-weight: ${({ $active, theme }) =>
-    $active ? theme.font.weightSemiBold : theme.font.weightNormal};
+    $active ? theme.font.weightSemiBold : theme.font.weightBold};
   cursor: pointer;
   transition: ${({ theme }) => theme.transition};
   text-align: left;

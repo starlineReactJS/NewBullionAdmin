@@ -25,7 +25,9 @@ import {
     SecondaryButton,
     IconButton,
     CellText,
+    CardScrollBody,
 } from "../../../common/styledComponents";
+import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -54,6 +56,7 @@ const ViewImgBtn = styled(SecondaryButton)`
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Product = () => {
+    const scrollRef = React.useRef(null);
     const dispatch = useDispatch();
     const { auth: { permissions: userPermissions } } = useAuth();
     const permissions = flattenPermissions(userPermissions);
@@ -80,7 +83,7 @@ const Product = () => {
     const { columnOrder, visibleColumns, setVisibleColumns, activeId, setActiveId, handleDragEnd } =
         useColumnManager("product", APPROVE_COL);
     const { data: productLists, isLoading, setData, setReset } =
-        useInfiniteScroll(getProductDetail, request, 40);
+        useInfiniteScroll(getProductDetail, request, 40,scrollRef);
 
     const [newProduct, setNewProduct] = useState({ ...PRODUCT_OBJ });
     const [popUp, setPopUp] = useState({ ...POPUP_OBJ });
@@ -358,7 +361,7 @@ const Product = () => {
 
     return (
         <PageWrapper>
-            <Card>
+            <ScrollCard>
                 <ActionBar>
                     <div>
                         <PrimaryButton onClick={openModal}>+ Add Product</PrimaryButton>
@@ -378,9 +381,10 @@ const Product = () => {
                         />
                     </ActionGroup>
                 </ActionBar>
-
-                {renderTable(productLists)}
-            </Card>
+                <CardScrollBody ref={scrollRef}>
+                    {renderTable(productLists)}
+                </CardScrollBody>
+            </ScrollCard>
 
             {popUp?.showPopup && (
                 <CommonModal

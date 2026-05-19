@@ -426,8 +426,12 @@ const ExcelPopup = ({
           {/* Date range */}
           <StyledRangePicker
             onChange={(_, dateStrings) => setDates(dateStrings)}
-           getPopupContainer={() => document.body}
-            popupClassName="dark-range-picker"
+            getPopupContainer={() => document.body}
+            classNames={{
+              popup: {
+                root: "dark-range-picker",
+              },
+            }}
           />
 
           {/* Search */}

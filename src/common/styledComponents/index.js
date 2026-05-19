@@ -27,7 +27,7 @@ export const fluidType = (key) => css`
 export const PageWrapper = styled.div`
   width: 100%;
   height: calc(100vh - ${({ theme }) => theme.headerHeight});
-  overflow-y: auto;
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
@@ -48,7 +48,7 @@ export const TwoColGrid = styled.div`
    @media (max-width: 1024px) {
     height:100%
    }
-   @media (min-width: 1024px) {
+   @media (min-width: 1025px) {
     display: grid;
     grid-template-columns: 1fr;
     gap: ${({ theme }) => theme.spacing.lg};
@@ -63,7 +63,8 @@ export const TwoColGrid = styled.div`
     grid-template-columns: 800px 2fr;
   }
       ${mq("xxxl")} {
-    grid-template-columns: 2fr 1fr;
+    // grid-template-columns: 2fr 1fr;
+    grid-template-columns: 65% 1fr;
   }
 `;
 // ═════════════════════════════════════════════════════════════════════════════
@@ -77,7 +78,6 @@ export const Card = styled.div`
   box-shadow: ${({ theme }) => theme.colors.shadowCard};
   transition: ${({ theme }) => theme.transition};
   overflow: auto;
-
   ${({ $hover }) =>
     $hover &&
     css`
@@ -94,6 +94,18 @@ export const Card = styled.div`
   }
   &::-webkit-scrollbar-thumb:hover {
     background: ${({ theme }) => theme.colors.borderStrong};
+  }
+`;
+
+export const CardScrollBody = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0; 
+
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: 6px;
   }
 `;
 
@@ -155,7 +167,7 @@ const btnBase = css`
   border-radius: 6px;
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
-  ${fluidType("bodySm")}
+  ${fluidType("h4")}
   cursor: pointer;
   transition: ${({ theme }) => theme.transition};
   white-space: nowrap;
@@ -326,12 +338,12 @@ export const Thead = styled.thead``;
 
 export const Th = styled.th`
   color: ${({ theme }) => theme.colors.textTableHeader};
-  font-size: ${({ theme }) => theme.font.sizeSm};
+  font-size: ${({ theme }) => theme.font.sizeMd};
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
   letter-spacing: 0.4px;
   text-transform: uppercase;
   padding: 11px 12px;
-  text-align: ${({ $align }) => $align || "center"};
+  text-align: center;
   white-space: nowrap;
   border: none;
 
@@ -360,7 +372,7 @@ export const Td = styled.td`
   font-size: ${({ theme }) => theme.font.sizeXl};
   vertical-align: middle;
   white-space: nowrap;
-
+  min-width: ${({ $w }) => $w || 100};
   &:first-child { padding-left: 16px; }
   &:last-child  { padding-right: 16px; }
 `;
@@ -496,7 +508,7 @@ export const FormTable = styled.table`
 
 export const FormTableBody = styled.tbody`
 overflow:auto;
-height:100%
+height:100%;
 `;
 
 
@@ -524,6 +536,7 @@ export const CellText = styled.p`
   max-width: 260px;
   white-space: normal;
   word-break: break-word;
-  ${fluidType("h4")}
+  ${fluidType("h4")};
+  text-align: center;
 
 `;

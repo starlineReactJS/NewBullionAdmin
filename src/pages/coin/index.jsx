@@ -66,29 +66,14 @@ const Coin = () => {
  
   return (
     <PageWrapper>
-      <TwoColGrid $ratio="2fr 1fr">
+      <TwoColGrid>
 
         {/* ── Left column ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px"}}>
 
           {/* Common Premium Card */}
           {commonPremium?.length > 0 && 
           <Card>
-            <CardHeader>
-              <div>
-                <PageTitle>Common Premium</PageTitle>
-                {/* <SectionLabel>Manage gold &amp; silver premiums per source</SectionLabel> */}
-              </div>
-              <SubmitRow>
-                <PrimaryButton
-                  disabled={disabledButton}
-                  onClick={commonPremiumSubmit}
-                >
-                  {disabledButton ? "Saving…" : "Submit"}
-                </PrimaryButton>
-              </SubmitRow>
-            </CardHeader>
-
             <CardBody>
               <PremiumGrid>
                 {commonPremium.map((d, index, array) => (
@@ -132,7 +117,15 @@ const Coin = () => {
                   </React.Fragment>
                 ))}
               </PremiumGrid>
-            </CardBody>
+                <SubmitRow>
+                  <PrimaryButton
+                    disabled={disabledButton}
+                    onClick={commonPremiumSubmit}
+                  >
+                    {disabledButton ? "Saving…" : "Submit"}
+                  </PrimaryButton>
+                </SubmitRow>
+              </CardBody>
           </Card>
           }
           {/* Symbol Table */}

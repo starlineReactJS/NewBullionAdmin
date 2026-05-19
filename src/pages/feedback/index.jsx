@@ -21,13 +21,16 @@ import {
   DateText,
   ModalFooter,
   FormTableBody,
-  FormTable
+  FormTable,
+  CardScrollBody
 } from "../../common/styledComponents";
+import { ScrollCard } from "../update";
 
 
 const APPROVE_COLUMNS = ["Name", "Mobile", "Email", "Message", "Subject", "Delete"];
 const FeedbackList = () => {
   const dispatch = useDispatch();
+    const scrollRef = React.useRef(null);
   const {
     columnOrder,
     visibleColumns,
@@ -40,7 +43,7 @@ const FeedbackList = () => {
   const [request, setRequest] = useState({});
   const [excelModelLoading, setIsExcelModelLoading] = useState(false);
   const { data: feedbackLists, isLoading, isFetchingMore, hasMore, setData, reset } =
-    useInfiniteScroll(getFeedbackDetails, request, 40);
+    useInfiniteScroll(getFeedbackDetails, request, 40,scrollRef);
 
   const handleDelete = useCallback((id) => {
     deleteModal({
@@ -151,7 +154,7 @@ const FeedbackList = () => {
 
   return (
     <PageWrapper>
-      <Card>
+      <ScrollCard>
         <ActionBar>
           <div></div>
           <ActionGroup>
@@ -172,8 +175,11 @@ const FeedbackList = () => {
         {/* ── Toolbar ── */}
 
         {/* ── Table ── */}
-        {bindTableData(feedbackLists)}
-      </Card>
+        <CardScrollBody ref={scrollRef}>
+          {bindTableData(feedbackLists)}
+        </CardScrollBody>
+ 
+      </ScrollCard>
 
     </PageWrapper>
   );

@@ -22,7 +22,9 @@ import {
   SecondaryButton,
   CellText,
   fluidType,
+  CardScrollBody,
 } from "../../../common/styledComponents";
+import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -51,6 +53,8 @@ const ProductType = () => {
   const visibleColumns = useMemo(() => ({
     Type: true, Image: true, Edit: true, Delete: true,
   }), []);
+  const scrollRef = React.useRef(null);
+
 
   const [imageModal, setImageModal] = useState({ open: false, url: "" });
 
@@ -61,7 +65,7 @@ const ProductType = () => {
     hasMore,
     setData,
     setReset,
-  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40);
+  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40, scrollRef);
 
   const [newProductType, setNewProductType] = useState({ ...TYPE_OBJ });
   const [popUp, setPopUp] = useState({ ...POPUP_OBJ });
@@ -215,7 +219,7 @@ const ProductType = () => {
 
   return (
     <PageWrapper>
-      <Card>
+      <ScrollCard>
         {/* Toolbar */}
         <ActionBar>
           <ActionGroup>
@@ -226,17 +230,19 @@ const ProductType = () => {
         </ActionBar>
 
         {/* Table */}
-        <SortableTable
-          data={productTypeLists}
-          columnOrder={APPROVE_COL}
-          visibleColumns={visibleColumns}
-          isLoading={isLoading}
-          isFetchingMore={isFetchingMore}
-          hasMore={hasMore}
-          enableColumnDrag={false}
-          columnRender={columnRender}
-        />
-      </Card>
+        <CardScrollBody ref={scrollRef}>
+          <SortableTable
+            data={productTypeLists}
+            columnOrder={APPROVE_COL}
+            visibleColumns={visibleColumns}
+            isLoading={isLoading}
+            isFetchingMore={isFetchingMore}
+            hasMore={hasMore}
+            enableColumnDrag={false}
+            columnRender={columnRender}
+          />
+        </CardScrollBody>
+      </ScrollCard>
 
       {/* Add / Edit modal */}
       {popUp?.showPopup && (

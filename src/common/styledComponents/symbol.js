@@ -34,8 +34,8 @@ export const PremiumCard = styled.div`
 `;
 
 export const PremiumName = styled.p`
+${fluidType("h4")};
   font-family: ${({ theme }) => theme.font.family};
-  font-size: ${({ theme }) => theme.font.sizeMd};
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
   color: ${({ theme }) => theme.colors.textPrimary};
   text-align: center;
@@ -88,7 +88,7 @@ export const NameCell = styled.p`
   color: ${({ theme }) => theme.colors.textPrimary};
   margin: 0;
   white-space: nowrap;
-    ${fluidType("h4")}
+    ${fluidType("h4")};
 
 `;
 
@@ -168,9 +168,9 @@ export const LabelTd = styled(Td)`
   text-align: left;
   padding-left: 14px;
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("bodySm")}
+  ${fluidType("h4")}
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.textPrimary};
   white-space: nowrap;
   background: ${({ theme }) => theme.colors.bgSurfaceAlt};
   border-right: 1px solid ${({ theme }) => theme.colors.divider};

@@ -24,6 +24,8 @@ const CostingCard = styled(Card)`
   height: auto;
   display: flex;
   flex-direction: column;
+  overflow:hidden;
+  max-width:fit-content;
 `;
 
 const CostingCardHeader = styled(CardHeader)`
@@ -46,10 +48,7 @@ const CostingTableWrapper = styled(TableWrapper)`
   border-top: 1px solid ${({ theme }) => theme.colors.divider};
   box-shadow: none;
   overflow: visible;
-
-  @media (max-width: 480px) {
-    overflow-x: auto;
-  }
+  overflow-x: auto;
 `;
 
 const LabelTd = styled(Td)`
@@ -58,9 +57,9 @@ const LabelTd = styled(Td)`
   text-align: left;
   padding-left: 14px;
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("bodySm")}
+  ${fluidType("h4")}
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.textPrimary};
   white-space: nowrap;
   border-right: 1px solid ${({ theme }) => theme.colors.divider};
 `;
@@ -70,7 +69,6 @@ const SpotTh = styled.th`
   color: ${({ theme }) => theme.colors.textTableHeader};
   padding: 10px 8px;
   text-align: center;
-  vertical-align: middle;
 `;
 
 const ProductName = styled.strong`
@@ -78,7 +76,7 @@ const ProductName = styled.strong`
   ${fluidType("bodySm")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
-  color: ${({ theme }) => theme.colors.textTableHeader};
+  color: ${({ theme }) => theme.colors.textPrimary};
   text-align: center;
   margin-bottom: 6px;
   letter-spacing: 0.3px;
@@ -88,11 +86,11 @@ const ProductName = styled.strong`
 const SpotSelect = styled.select`
   width: 100%;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid ${({ theme }) => theme.colors.borderInput};
   border-radius: ${({ theme }) => theme.radius.sm};
-  color: ${({ theme }) => theme.colors.textTableHeader};
+  color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("caption")}
+  ${fluidType("h4")}
   font-weight: ${({ theme }) => theme.font.weightMedium};
   padding: 4px 6px;
   cursor: pointer;
@@ -106,7 +104,7 @@ const SpotSelect = styled.select`
   }
 
   &:focus {
-    border-color: rgba(255, 255, 255, 0.6);
+    border-color: ${({ theme }) => theme.colors.borderInputFocus};
     background: rgba(255, 255, 255, 0.18);
   }
 `;
@@ -115,7 +113,7 @@ const SpotValue = styled.p`
   ${fluidType("bodySm")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.colors.textPrimary};;
   text-align: center;
   margin: 0;
   letter-spacing: 0.5px;
@@ -152,8 +150,8 @@ const CostingTable = memo(({ chunk, computedRows, onChange, onSubmit, disabledBu
                     <Tbody>
 
                         {/* ── Spot header row ── */}
-                        <Tr $alt={true}>
-                            <SpotTh style={{ width: 110 }} />
+                        <Tr>
+                            <SpotTh style={{ width: 150 }} />
 
                             {chunk.map(item => {
                                 const metal = getMetalType(item.spot);
@@ -214,6 +212,7 @@ const CostingTable = memo(({ chunk, computedRows, onChange, onSubmit, disabledBu
                 <BankRateDifference
                     data={differenceData}
                     onChange={onChange}
+                    gridType="costing"
                 />
             </DiffWrapper>
         </CostingCard>

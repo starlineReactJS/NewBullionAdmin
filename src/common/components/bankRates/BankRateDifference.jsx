@@ -26,7 +26,7 @@ const DiffTitle = styled.h6`
 
 const DiffGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(${({ $count }) => Math.min($count, 3)}, 1fr);
+  grid-template-columns: repeat(${({ $count, $gridType}) => Math.min($count, $gridType === 'costing' ? 6 : 3)}, 1fr);
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 0 0 ${({ theme }) => theme.radius.md}
     ${({ theme }) => theme.radius.md};
@@ -145,14 +145,15 @@ const DiffValue = styled.p`
 
 const BankRateDifference = memo(({
     data,
-    onChange
+    onChange,
+    gridType
 }) => {
     return (
         <>
             <DiffSection>
                 <DiffTitle>Difference</DiffTitle>
 
-                <DiffGrid $count={data.length}>
+                <DiffGrid $count={data.length} $gridType={gridType}>
                     {data.map((d, index) => {
                         const metal = getMetalType(d.exchange);
                         const exchangeOptions = EXCHANGE_OPTIONS[metal];
@@ -189,7 +190,7 @@ const BankRateDifference = memo(({
                                 </RatesRow>
 
                                 <DiffValue $diff={diff}>
-                                    {diff > 0 ? "▲" : diff < 0 ? "▼" : "—"}&nbsp;
+                                    {diff > 0 ? <i className="fa fa-caret-up" aria-hidden="true" ></i> : diff < 0 ? <i className="fa fa-caret-down" aria-hidden="true"></i> : "—"}&nbsp;
                                     {diff.toFixed(2)}
                                 </DiffValue>
                             </DiffCard>

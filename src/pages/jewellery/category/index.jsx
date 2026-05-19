@@ -21,17 +21,19 @@ import {
   SecondaryButton,
   IconButton,
   CellText,
+  CardScrollBody,
 } from "../../../common/styledComponents";
+import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const CATEGORY_OBJ  = { parentId: "", name: "", file: "", level: "2" };
-const TYPES_OBJ     = { typeId: "", typeName: "" };
-const POPUP_OBJ     = { showPopup: false, modalTitle: null, modelClass: "", isEdit: false };
-const COLUMN_ORDER  = ["Type", "Category", "Image", "Edit", "Delete"];
-const REQUEST       = { level: "2" };
+const CATEGORY_OBJ = { parentId: "", name: "", file: "", level: "2" };
+const TYPES_OBJ = { typeId: "", typeName: "" };
+const POPUP_OBJ = { showPopup: false, modalTitle: null, modelClass: "", isEdit: false };
+const COLUMN_ORDER = ["Type", "Category", "Image", "Edit", "Delete"];
+const REQUEST = { level: "2" };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Local styled components
@@ -50,6 +52,7 @@ const Category = () => {
   const visibleColumns = useMemo(() => ({
     Type: true, Category: true, Image: true, Edit: true, Delete: true,
   }), []);
+  const scrollRef = React.useRef(null);
 
   const {
     data: categoryLists,
@@ -58,16 +61,16 @@ const Category = () => {
     hasMore,
     setData,
     setReset,
-  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40);
+  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40,scrollRef);
 
   const { productTypes } = useSelector((state) => state.jewellery);
   const dispatch = useDispatch();
 
-  const [newCategory,   setNewCategory]   = useState({ ...CATEGORY_OBJ });
-  const [popUp,         setPopUp]         = useState({ ...POPUP_OBJ });
+  const [newCategory, setNewCategory] = useState({ ...CATEGORY_OBJ });
+  const [popUp, setPopUp] = useState({ ...POPUP_OBJ });
   const [disableButton, setIsDisableButton] = useState(false);
-  const [hierarchy,     setHierarchy]     = useState({ ...TYPES_OBJ });
-  const [imageModal,    setImageModal]    = useState({ open: false, url: "" });
+  const [hierarchy, setHierarchy] = useState({ ...TYPES_OBJ });
+  const [imageModal, setImageModal] = useState({ open: false, url: "" });
 
   // ── Handlers (logic untouched) ──────────────────────────────────────────
 
@@ -233,7 +236,7 @@ const Category = () => {
 
   return (
     <PageWrapper>
-      <Card>
+      <ScrollCard>
         <ActionBar>
           <ActionGroup>
             <PrimaryButton onClick={openModal}>
@@ -241,18 +244,19 @@ const Category = () => {
             </PrimaryButton>
           </ActionGroup>
         </ActionBar>
-
-        <SortableTable
-          data={categoryLists}
-          columnOrder={COLUMN_ORDER}
-          visibleColumns={visibleColumns}
-          isLoading={isLoading}
-          isFetchingMore={isFetchingMore}
-          hasMore={hasMore}
-          enableColumnDrag={false}
-          columnRender={columnRender}
-        />
-      </Card>
+        <CardScrollBody ref={scrollRef}>
+          <SortableTable
+            data={categoryLists}
+            columnOrder={COLUMN_ORDER}
+            visibleColumns={visibleColumns}
+            isLoading={isLoading}
+            isFetchingMore={isFetchingMore}
+            hasMore={hasMore}
+            enableColumnDrag={false}
+            columnRender={columnRender}
+          />
+        </CardScrollBody>
+      </ScrollCard>
 
       {popUp?.showPopup && (
         <CommonModal

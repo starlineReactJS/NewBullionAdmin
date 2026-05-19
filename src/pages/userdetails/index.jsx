@@ -7,7 +7,8 @@ import {
   PrimaryButton,
   Checkbox,
 } from "../../common/styledComponents";
-import { SectionCard, SectionTitle, SectionBody, ContactGrid, ContactBlock, BlockHeading, AddBtn, RemoveBtn, InputRow, FieldInput, FieldTextArea, RateGrid, RateItem, MarqueeGrid, FieldLabel, WhatsAppRow, FooterRow, BannerGrid, BannerBox, BannerNote, UploadLabel, BannerPreview, BannerImg, DeleteBannerBtn } from "../../common/styledComponents/userDetails";
+import { SectionCard, SectionTitle, SectionBody, ContactGrid, ContactBlock, BlockHeading, AddBtn, RemoveBtn, InputRow, FieldInput, FieldTextArea, RateGrid, RateItem, MarqueeGrid, FieldLabel, WhatsAppRow, FooterRow, BannerGrid, BannerBox, BannerNote, UploadLabel, BannerPreview, BannerImg, DeleteBannerBtn, RateItemToggle, RateToggleGrid, } from "../../common/styledComponents/userDetails";
+import { Switch } from "antd";
 
 
 const CONTACT_OBJ = {
@@ -363,20 +364,22 @@ const UserDetails = () => {
       <SectionCard>
         <SectionTitle>Rate Hide/Show</SectionTitle>
         <SectionBody>
-          <RateGrid>
+          <RateToggleGrid>
             {addFields?.rateHideShow?.map((item, index) =>
               Object.keys(RATE_LABELS).map((key) => (
-                <RateItem key={key}>
-              {RATE_LABELS[key]}
-                  <Checkbox
-                    name={key}
-                    checked={item[key]}
-                    onChange={(e) => handleUpdate("rateHideShow", index, e.target.checked, null, e.target.name)}
+                <RateItemToggle key={key}>
+                  <Switch
+                    checked={!!item[key]}
+                    onChange={(checked) =>
+                      handleUpdate("rateHideShow", index, checked, null, key)
+                    }
+                    size="large"
                   />
-                </RateItem>
+                  {RATE_LABELS[key]}
+                </RateItemToggle>
               ))
             )}
-          </RateGrid>
+          </RateToggleGrid>
         </SectionBody>
       </SectionCard>
 

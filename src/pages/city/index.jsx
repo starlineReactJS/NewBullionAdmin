@@ -160,7 +160,10 @@ const City = () => {
     setIsLoading(true);
     try {
       const result = await getCityDetails();
-      if (result?.success) setCityLists(result.data || []);
+      if (result?.success) {
+        setCityLists(result.data || []);
+        setSelectedCityId(result?.data[0]?.id || "");
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -241,18 +244,17 @@ const City = () => {
           </CardHeader>
 
           <CitySelectRow>
-            <CitySelectLabel>Select City:</CitySelectLabel>
+            {/* <CitySelectLabel>Select City:</CitySelectLabel> */}
             <CitySelect
               value={selectedCityId}
               onChange={(e) => setSelectedCityId(e.target.value)}
             >
-              <option value="">Select City</option>
+              {/* <option value="">Select City</option> */}
               {cityLists.map((city) => (
                 <option key={city.id} value={city.id}>{city.name}</option>
               ))}
             </CitySelect>
           </CitySelectRow>
-
           {selectedCityId ? (
             <CitySymbolsTable selectedCityId={selectedCityId} />
           ) : (

@@ -36,18 +36,18 @@ const   SymbolRow = memo(
                 </Td>
 
                 {/* Name */}
-                <Td $align="left">
+                <Td $align="center" $w="230px">
                     <NameCell>{symbol.name}</NameCell>
                 </Td>
 
                 {/* Source */}
                 <Td>
-                    <SourceText>{symbol.source}</SourceText>
+                    <NameCell>{symbol.source}</NameCell>
                 </Td>
 
                 {/* Rate Type */}
                 <Td>
-                    <RateTypeBadge>{symbol.rateType}</RateTypeBadge>
+                    <NameCell>{symbol.rateType}</NameCell>
                 </Td>
 
                 {/* Buy Premium */}
