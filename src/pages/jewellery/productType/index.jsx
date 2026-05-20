@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import { deleteCategoryDetail, getCategoryDetail, saveUpdateCategoryDetail } from "../../../ApiServices/services";
 import { toastFn } from "@/utils";
 import SortableTable from "../../../common/components/sortTable";
@@ -22,9 +23,7 @@ import {
   SecondaryButton,
   CellText,
   fluidType,
-  CardScrollBody,
 } from "../../../common/styledComponents";
-import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -53,8 +52,7 @@ const ProductType = () => {
   const visibleColumns = useMemo(() => ({
     Type: true, Image: true, Edit: true, Delete: true,
   }), []);
-  const scrollRef = React.useRef(null);
-
+  const { contentRef } = useOutletContext() || {};
 
   const [imageModal, setImageModal] = useState({ open: false, url: "" });
 
@@ -65,7 +63,7 @@ const ProductType = () => {
     hasMore,
     setData,
     setReset,
-  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40, scrollRef);
+  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40, contentRef);
 
   const [newProductType, setNewProductType] = useState({ ...TYPE_OBJ });
   const [popUp, setPopUp] = useState({ ...POPUP_OBJ });
@@ -219,7 +217,7 @@ const ProductType = () => {
 
   return (
     <PageWrapper>
-      <ScrollCard>
+      <Card>
         {/* Toolbar */}
         <ActionBar>
           <ActionGroup>
@@ -230,7 +228,6 @@ const ProductType = () => {
         </ActionBar>
 
         {/* Table */}
-        <CardScrollBody ref={scrollRef}>
           <SortableTable
             data={productTypeLists}
             columnOrder={APPROVE_COL}
@@ -241,8 +238,7 @@ const ProductType = () => {
             enableColumnDrag={false}
             columnRender={columnRender}
           />
-        </CardScrollBody>
-      </ScrollCard>
+      </Card>
 
       {/* Add / Edit modal */}
       {popUp?.showPopup && (

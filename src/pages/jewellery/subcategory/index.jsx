@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import useInfiniteScroll from "../../../common/hooks/useInfiniteScroll";
 import { deleteCategoryDetail, getCategoryDetail, saveUpdateCategoryDetail } from "../../../ApiServices/services";
 import { toastFn } from "@/utils";
@@ -21,9 +22,7 @@ import {
   SecondaryButton,
   IconButton,
   CellText,
-  CardScrollBody,
 } from "../../../common/styledComponents";
-import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -40,8 +39,8 @@ const ViewImgBtn = styled(SecondaryButton)`
   font-size: ${({ theme }) => theme.font.sizeXs};
 `;
 const SubCategory = () => {
-    const scrollRef = React.useRef(null);
 
+  const {contentRef} = useOutletContext() || {};
   const visibleColumns = useMemo(() => ({
     Type: true, Category: true, SubCategory: true, Image: true, Edit: true, Delete: true,
   }), []);
@@ -49,7 +48,7 @@ const SubCategory = () => {
   const dispatch = useDispatch();
 
   const { data: subCategoryLists, isLoading, setData, setReset } =
-    useInfiniteScroll(getCategoryDetail, REQUEST, 40,scrollRef);
+    useInfiniteScroll(getCategoryDetail, REQUEST, 40, contentRef);
 
   const [newSubCategory, setNewSubCategory] = useState({ ...SUB_CATEGORY_OBJ });
   const [popUp,          setPopUp]          = useState({ ...POPUP_OBJ });
@@ -214,14 +213,13 @@ const SubCategory = () => {
 
   return (
     <PageWrapper>
-      <ScrollCard>
+      <Card>
         <ActionBar>
           <ActionGroup>
             <PrimaryButton onClick={openModal}>+ Add Sub Category</PrimaryButton>
           </ActionGroup>
         </ActionBar>
 
-    <CardScrollBody ref={scrollRef}>
         <SortableTable
           data={subCategoryLists}
           columnOrder={COLUMN_ORDER}
@@ -230,8 +228,7 @@ const SubCategory = () => {
           enableColumnDrag={false}
           columnRender={columnRender}
         />
-    </CardScrollBody>
-      </ScrollCard>
+      </Card>
 
       {popUp?.showPopup && (
         <CommonModal

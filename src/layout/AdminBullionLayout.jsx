@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -116,6 +116,7 @@ const useIsMobile = (breakpoint = 768) => {
 const AdminBullionLayout = () => {
   const [desktopOpen, setDesktopOpen] = useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const contentRef = useRef(null);
 
   const localTheme = localStorage.getItem("theme");
   const [theme, setTheme] = useState(localTheme || "light");
@@ -199,9 +200,9 @@ const AdminBullionLayout = () => {
               </Drawer>
 
               {/* ── Content ── */}
-              <ContentArea>
+              <ContentArea  ref={contentRef}>
                 <sourceContext.Provider value={sourceData}>
-                  <Outlet />
+                  <Outlet context={{ contentRef }}/>
                 </sourceContext.Provider>
               </ContentArea>
             </Body>

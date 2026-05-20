@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import FilterComponent from "../../common/components/filterCom";
 import { setExcelData } from "../../redux/slices/excelSlice";
 import useColumnManager from "../../common/hooks/useColumnManager";
@@ -23,14 +24,12 @@ import {
   ModalFooter,
   FormTableBody,
   FormTable,
-  CardScrollBody
 } from "../../common/styledComponents";
-import { ScrollCard } from "../update";
 
 const APPROVE_COLUMNS = ["Date", "Name", "Firmname", "Mobile", "City", "IP", "Delete"];
 const OTRList = () => {
   const dispatch = useDispatch();
-   const scrollRef = React.useRef(null);
+  const {contentRef} = useOutletContext() || {};
   const {
     columnOrder,
     visibleColumns,
@@ -48,7 +47,7 @@ const OTRList = () => {
     hasMore,
     setData,
     reset
-  } = useInfiniteScroll(getOTRListDetails, request, 40,scrollRef);
+  } = useInfiniteScroll(getOTRListDetails, request, 40,contentRef);
 
   const handleFilterSubmit = useCallback(({ searchText, dates }) => {
     setRequest({
@@ -161,7 +160,7 @@ const OTRList = () => {
 
   return (
     <PageWrapper>
-      <ScrollCard>
+      <Card>
         <ActionBar>
           <div></div>
           <ActionGroup>
@@ -179,10 +178,8 @@ const OTRList = () => {
             />
           </ActionGroup>
         </ActionBar>
-        <CardScrollBody>
         {bindTableData(otrLists)}
-        </CardScrollBody>
-      </ScrollCard>
+      </Card>
 
     </PageWrapper>
   );

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import FilterComponent from "../../common/components/filterCom";
 import { toastFn } from '@/utils';
 import { setExcelData } from "../../redux/slices/excelSlice";
@@ -22,15 +23,13 @@ import {
   ModalFooter,
   FormTableBody,
   FormTable,
-  CardScrollBody
 } from "../../common/styledComponents";
-import { ScrollCard } from "../update";
 
 
 const APPROVE_COLUMNS = ["Name", "Mobile", "Email", "Message", "Subject", "Delete"];
 const FeedbackList = () => {
+    const { contentRef } = useOutletContext() || {};
   const dispatch = useDispatch();
-    const scrollRef = React.useRef(null);
   const {
     columnOrder,
     visibleColumns,
@@ -43,7 +42,7 @@ const FeedbackList = () => {
   const [request, setRequest] = useState({});
   const [excelModelLoading, setIsExcelModelLoading] = useState(false);
   const { data: feedbackLists, isLoading, isFetchingMore, hasMore, setData, reset } =
-    useInfiniteScroll(getFeedbackDetails, request, 40,scrollRef);
+    useInfiniteScroll(getFeedbackDetails, request, 40,contentRef);
 
   const handleDelete = useCallback((id) => {
     deleteModal({
@@ -154,7 +153,7 @@ const FeedbackList = () => {
 
   return (
     <PageWrapper>
-      <ScrollCard>
+      <Card>
         <ActionBar>
           <div></div>
           <ActionGroup>
@@ -175,11 +174,9 @@ const FeedbackList = () => {
         {/* ── Toolbar ── */}
 
         {/* ── Table ── */}
-        <CardScrollBody ref={scrollRef}>
           {bindTableData(feedbackLists)}
-        </CardScrollBody>
  
-      </ScrollCard>
+      </Card>
 
     </PageWrapper>
   );

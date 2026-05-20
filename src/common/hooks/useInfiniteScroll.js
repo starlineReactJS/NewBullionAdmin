@@ -24,7 +24,6 @@ const useInfiniteScroll = (fetchFunction, extraParams = {}, offsetLimit = 40, sc
     setIsFetchingMore(true);
     if (isInitialLoad) setIsLoading(true);   // ← only set on initial load
 
-
     try {
       const result = await fetchFunction({
         ...extraParams,

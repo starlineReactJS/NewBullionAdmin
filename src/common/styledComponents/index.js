@@ -26,7 +26,6 @@ export const fluidType = (key) => css`
 /** Full-width scrollable page wrapper */
 export const PageWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - ${({ theme }) => theme.headerHeight});
   overflow-x: auto;
   display: flex;
   flex-direction: column;
@@ -50,7 +49,7 @@ export const TwoColGrid = styled.div`
    }
    @media (min-width: 1025px) {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     gap: ${({ theme }) => theme.spacing.lg};
   }
 

@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import useInfiniteScroll from "../../../common/hooks/useInfiniteScroll";
 import { deleteCategoryDetail, getCategoryDetail, saveUpdateCategoryDetail } from "../../../ApiServices/services";
 import { toastFn } from "@/utils";
@@ -21,9 +22,7 @@ import {
   SecondaryButton,
   IconButton,
   CellText,
-  CardScrollBody,
 } from "../../../common/styledComponents";
-import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -52,8 +51,7 @@ const Category = () => {
   const visibleColumns = useMemo(() => ({
     Type: true, Category: true, Image: true, Edit: true, Delete: true,
   }), []);
-  const scrollRef = React.useRef(null);
-
+  const { contentRef } = useOutletContext() || {};
   const {
     data: categoryLists,
     isLoading,
@@ -61,7 +59,7 @@ const Category = () => {
     hasMore,
     setData,
     setReset,
-  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40,scrollRef);
+  } = useInfiniteScroll(getCategoryDetail, REQUEST, 40,contentRef);
 
   const { productTypes } = useSelector((state) => state.jewellery);
   const dispatch = useDispatch();
@@ -236,7 +234,7 @@ const Category = () => {
 
   return (
     <PageWrapper>
-      <ScrollCard>
+      <Card>
         <ActionBar>
           <ActionGroup>
             <PrimaryButton onClick={openModal}>
@@ -244,7 +242,6 @@ const Category = () => {
             </PrimaryButton>
           </ActionGroup>
         </ActionBar>
-        <CardScrollBody ref={scrollRef}>
           <SortableTable
             data={categoryLists}
             columnOrder={COLUMN_ORDER}
@@ -255,8 +252,7 @@ const Category = () => {
             enableColumnDrag={false}
             columnRender={columnRender}
           />
-        </CardScrollBody>
-      </ScrollCard>
+      </Card>
 
       {popUp?.showPopup && (
         <CommonModal

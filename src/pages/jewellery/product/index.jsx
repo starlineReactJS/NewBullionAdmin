@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import useColumnManager from "../../../common/hooks/useColumnManager";
 import useInfiniteScroll from "../../../common/hooks/useInfiniteScroll";
 import { deleteProductDetail, getCategoryDetail, getProductDetail, saveUpdateProductDetail } from "../../../ApiServices/services";
@@ -25,9 +26,7 @@ import {
     SecondaryButton,
     IconButton,
     CellText,
-    CardScrollBody,
 } from "../../../common/styledComponents";
-import { ScrollCard } from "../../update";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants (logic untouched)
@@ -56,7 +55,7 @@ const ViewImgBtn = styled(SecondaryButton)`
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Product = () => {
-    const scrollRef = React.useRef(null);
+      const { contentRef } = useOutletContext() || {};
     const dispatch = useDispatch();
     const { auth: { permissions: userPermissions } } = useAuth();
     const permissions = flattenPermissions(userPermissions);
@@ -83,7 +82,7 @@ const Product = () => {
     const { columnOrder, visibleColumns, setVisibleColumns, activeId, setActiveId, handleDragEnd } =
         useColumnManager("product", APPROVE_COL);
     const { data: productLists, isLoading, setData, setReset } =
-        useInfiniteScroll(getProductDetail, request, 40,scrollRef);
+        useInfiniteScroll(getProductDetail, request, 40,contentRef);
 
     const [newProduct, setNewProduct] = useState({ ...PRODUCT_OBJ });
     const [popUp, setPopUp] = useState({ ...POPUP_OBJ });
@@ -361,7 +360,7 @@ const Product = () => {
 
     return (
         <PageWrapper>
-            <ScrollCard>
+            <Card>
                 <ActionBar>
                     <div>
                         <PrimaryButton onClick={openModal}>+ Add Product</PrimaryButton>
@@ -381,10 +380,8 @@ const Product = () => {
                         />
                     </ActionGroup>
                 </ActionBar>
-                <CardScrollBody ref={scrollRef}>
                     {renderTable(productLists)}
-                </CardScrollBody>
-            </ScrollCard>
+            </Card>
 
             {popUp?.showPopup && (
                 <CommonModal

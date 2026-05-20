@@ -283,7 +283,7 @@ const BankRate = memo(() => {
   }
 
   return (
-    <>
+    <div>
       <LiverateSocket />
 
       <BankCard>
@@ -347,7 +347,7 @@ const BankRate = memo(() => {
           </EmptyStateWrapper>
         )}
       </BankCard>
-    </>
+    </div>
   );
 });
 

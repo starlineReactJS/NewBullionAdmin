@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import CommonModal from "../../common/components/modal";
 import { toastFn } from "@/utils";
 import FilterComponent from "../../common/components/filterCom";
@@ -29,17 +30,8 @@ import {
   ModalFooter,
   FormTableBody,
   FormTable,
-  CardScrollBody,
 } from "../../common/styledComponents";
-import styled from "styled-components";
 
-
-export const ScrollCard = styled(PageWrapper)`
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-`;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants
@@ -54,16 +46,17 @@ const trimObjectValues = (obj) =>
   );
 
 const Update = () => {
+  const { contentRef } = useOutletContext() || {};
   const {
     columnOrder, visibleColumns, setVisibleColumns,
     activeId, setActiveId, handleDragEnd,
   } = useColumnManager("update", APPROVE_COLUMNS);
-  const scrollRef = React.useRef(null);
+
   const [request, setRequest] = useState({});
   const {
     data: updateLists, isLoading, isFetchingMore,
     hasMore, setData, setReset,
-  } = useInfiniteScroll(getUpdateDetails, request, 40,scrollRef);
+  } = useInfiniteScroll(getUpdateDetails, request, 40, contentRef);
 
   const [newUpdate, setNewUpdate] = useState({ ...INITIAL_UPDATE });
   const [showModal, setShowModal] = useState(false);
@@ -240,7 +233,7 @@ const Update = () => {
 
   return (
     <PageWrapper>
-      <ScrollCard>
+      <Card>
         <ActionBar>
           <div>
             {/* <PageTitle>Updates</PageTitle>
@@ -268,10 +261,8 @@ const Update = () => {
         {/* ── Toolbar ── */}
 
         {/* ── Table ── */}
-        <CardScrollBody ref={scrollRef}>
-          {renderTable(updateLists)}
-        </CardScrollBody>
-      </ScrollCard>
+        {renderTable(updateLists)}
+      </Card>
 
       {/* ── Add Update Modal ── */}
       {showModal && (
