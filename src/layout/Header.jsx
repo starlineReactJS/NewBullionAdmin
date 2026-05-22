@@ -88,17 +88,8 @@ const AvatarCircle = styled.div`
   border: 2px solid rgba(255,255,255,0.2);
 `;
 
-const WelcomeText = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  line-height: 1.2;
-
-  @media (max-width: 480px) { display: none; }
-`;
-
 const WelcomeLabel = styled.span`
-  font-size: ${({ theme }) => theme.font.sizeXs};
+  font-size: ${({ theme }) => theme.font.sizeMd};
   color:#FFFFFF;
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightNormal};
@@ -283,65 +274,61 @@ const LogoutButton = styled.button`
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Header = ({ toggleDrawer, theme, themeFn }) => {
-    const { logout, auth: { name } } = useAuth();
-    const navigate = useNavigate();
-    const localStore = useSelector((store) => store);
+  const { logout, auth: { name } } = useAuth();
+  const navigate = useNavigate();
+  const localStore = useSelector((store) => store);
 
-    const handleLogout = () => {
-        logout();
-        navigate("/login");
-    };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
-    const isDark = theme === "dark";
+  const isDark = theme === "dark";
 
-    return (
-        <HeaderRoot>
-            <Inner>
-                {/* ── Left ── */}
-                <LeftSection>
-                    <MenuButton onClick={toggleDrawer} aria-label="Toggle sidebar">
-                        <FiMenu size={18} />
-                    </MenuButton>
+  return (
+    <HeaderRoot>
+      <Inner>
+        {/* ── Left ── */}
+        <LeftSection>
+          <MenuButton onClick={toggleDrawer} aria-label="Toggle sidebar">
+            <FiMenu size={18} />
+          </MenuButton>
 
-                    <AvatarCircle>{name.charAt(0).toUpperCase()}</AvatarCircle>
+          <AvatarCircle>{name.charAt(0).toUpperCase()}</AvatarCircle>
+          <WelcomeLabel>Welcome <UserName>{name}</UserName></WelcomeLabel>
+        </LeftSection>
 
-                    <WelcomeText>
-                        <WelcomeLabel>Welcome</WelcomeLabel>
-                        <UserName>{name}</UserName>
-                    </WelcomeText>
-                </LeftSection>
+        {/* ── Center ── */}
+        <CenterSection>
+          <ActiveBadge>
+            <PulseDot />
+            Active Users&nbsp;
+            <ActiveCount>{localStore.socket.activeUser}</ActiveCount>
+          </ActiveBadge>
+        </CenterSection>
 
-                {/* ── Center ── */}
-                <CenterSection>
-                    <ActiveBadge>
-                        <PulseDot />
-                        Active Users&nbsp;
-                        <ActiveCount>{localStore.socket.activeUser}</ActiveCount>
-                    </ActiveBadge>
-                </CenterSection>
+        {/* ── Right ── */}
+        <RightSection>
+          <ToggleWrapper>
+            <ToggleTrack htmlFor="themeToggle" title={isDark ? "Switch to light" : "Switch to dark"}>
+              <ToggleInput
+                type="checkbox"
+                id="themeToggle"
+                checked={isDark}
+                onChange={() => themeFn(isDark ? "light" : "dark")}
+              />
+              <ToggleSlider />
+            </ToggleTrack>
+          </ToggleWrapper>
 
-                {/* ── Right ── */}
-                <RightSection>
-                    <ToggleWrapper>
-                        <ToggleTrack htmlFor="themeToggle" title={isDark ? "Switch to light" : "Switch to dark"}>
-                            <ToggleInput
-                                type="checkbox"
-                                id="themeToggle"
-                                checked={isDark}
-                                onChange={() => themeFn(isDark ? "light" : "dark")}
-                            />
-                            <ToggleSlider />
-                        </ToggleTrack>
-                    </ToggleWrapper>
-
-                    <LogoutButton onClick={handleLogout}>
-                        <FiLogOut size={14} />
-                        <span className="logout-label">Logout</span>
-                    </LogoutButton>
-                </RightSection>
-            </Inner>
-        </HeaderRoot>
-    );
+          <LogoutButton onClick={handleLogout}>
+            <FiLogOut size={14} />
+            <span className="logout-label">Logout</span>
+          </LogoutButton>
+        </RightSection>
+      </Inner>
+    </HeaderRoot>
+  );
 };
 
 export default Header;
