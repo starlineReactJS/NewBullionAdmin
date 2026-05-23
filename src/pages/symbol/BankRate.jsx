@@ -38,7 +38,7 @@ const BankRate = memo(() => {
   const subscriptionsRef = useRef({});
   const prevInstRef = useRef({});
   const rateBufferRef = useRef({});
-  const lastUpdateRef = useRef(0);
+  const lastUpdateRef = useRef({}); 
   const THROTTLE_MS = 150;
 
   const bankRateSource = useMemo(
@@ -50,32 +50,33 @@ const BankRate = memo(() => {
   );
 
   const subscribeInstrument = (instrument) => {
+    // console.log('subscribeInstrument : ',subscriptionsRef.current)
     if (!instrument || subscriptionsRef.current[instrument]) return;
-
+    
     const unsub = rateStore.subscribe(instrument, (r) => {
       // 1️⃣ always keep latest tick
       rateBufferRef.current[r.instrument] = r;
 
       const now = Date.now();
-      if (now - lastUpdateRef.current < THROTTLE_MS) return;
-
-      lastUpdateRef.current = now;
+      // console.log('instrument :', instrument , 'time :',now)
+      // if (now - lastUpdateRef.current  < THROTTLE_MS) return;
+      // lastUpdateRef.current = now;
+      if (lastUpdateRef.current[instrument] && now - lastUpdateRef.current[instrument] < THROTTLE_MS) return;
+      lastUpdateRef.current[instrument] = now;
 
       // 2️⃣ flush buffered ticks
       setRate((prev) => {
         const updated = [...prev];
-
-        Object.values(rateBufferRef.current).forEach((tick) => {
-          const i = updated.findIndex((x) => x.instrument === tick.instrument);
-
-          if (i !== -1) {
-            updated[i] = tick;
-          } else {
-            updated.push(tick);
-          }
-        });
-
-        return updated;
+        // Object.values(rateBufferRef.current).forEach((tick) => {
+        //   const i = updated.findIndex((x) => x.instrument === tick.instrument);
+        //   if (i !== -1) {
+        //     updated[i] = tick;
+        //   } else {
+        //     updated.push(tick);
+        //   }
+        // });
+        const allTicks =Object.values(rateBufferRef.current)
+        return allTicks
       });
     });
     subscriptionsRef.current[instrument] = unsub;
@@ -107,24 +108,24 @@ const BankRate = memo(() => {
   }, [bankObj, bankRateSource]);
 
   //for dropdown tick
-  useEffect(() => {
-    bankRateSource.forEach((s) => {
-      const sourceKey = s.value;
-      const inrKey = bankObj[sourceKey]?.inr;
-      // const inrInstrument = inrJSON[inrKey];
+  // useEffect(() => {
+  //   bankRateSource.forEach((s) => {
+  //     const sourceKey = s.value;
+  //     const inrKey = bankObj[sourceKey]?.inr;
+  //     // const inrInstrument = inrJSON[inrKey];
 
-      // unsubscribe old INR instruments
-      Object.keys(inrJSON).forEach((k) => {
-        const inst = inrJSON[k];
-        if (inst !== inrKey) {
-          unsubscribeInstrument(inst);
-        }
-      });
+  //     // unsubscribe old INR instruments
+  //     Object.keys(inrJSON).forEach((k) => {
+  //       const inst = inrJSON[k];
+  //       if (inst !== inrKey) {
+  //         unsubscribeInstrument(inst);
+  //       }
+  //     });
 
-      // subscribe selected INR
-      subscribeInstrument(inrKey);
-    });
-  }, [bankObj, bankRateSource]);
+  //     // subscribe selected INR
+  //     subscribeInstrument(inrKey);
+  //   });
+  // }, [bankObj, bankRateSource]);
 
   const getBankRate = async () => {
     setIsLoading(true);

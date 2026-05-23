@@ -407,12 +407,12 @@ const CoinTable = memo(({ commonPremiumSource }) => {
                 </ActionBar> */}
                 {/* Rate type + save all controls */}
                 <ActionBar style={{ paddingTop: "10px", paddingBottom: "10px" }}>
-                     <ActionGroup>
+                    <ActionGroup>
                         <PrimaryButton onClick={() => openModal(false)}>
                             + Add New
                         </PrimaryButton>
                     </ActionGroup>
-                    <ActionGroup>
+                    {coins?.length > 0 && <ActionGroup>
                         <SecondaryButton
                             disabled={actionLoading.rateType}
                             onClick={() => changeRateType("exchange")}
@@ -438,7 +438,7 @@ const CoinTable = memo(({ commonPremiumSource }) => {
                             {actionLoading.saveAll ? "Saving…" : "Save All"}
                         </SecondaryButton>
                     </ActionGroup>
-
+                    }
                 </ActionBar>
                 {/* ── Table ── */}
                 <TableWrapper>
@@ -460,7 +460,7 @@ const CoinTable = memo(({ commonPremiumSource }) => {
                             ) : (
                                 <>
                                     <Thead>
-                                        <Tr  $alt={true}>
+                                        <Tr $alt={true}>
                                             {allCols.map((col) => (
                                                 <Th key={col}>{col}</Th>
                                             ))}
@@ -476,15 +476,15 @@ const CoinTable = memo(({ commonPremiumSource }) => {
                                                 coins.map((symbol, idx) => (
                                                     <SortableRow key={symbol.id} id={symbol.id}>
                                                         {/* <Tr $alt={idx % 2 === 1}> */}
-                                                            <CoinRows
-                                                                symbol={symbol}
-                                                                handleSymbolUpdate={handleSymbolUpdate}
-                                                                handleSaveCoin={handleSaveCoin}
-                                                                handleDeleteCoin={handleDeleteCoin}
-                                                                openModal={openModal}
-                                                                commonPremiumSource={commonPremiumSource}
-                                                                rowSaveId={actionLoading?.rowSaveId}
-                                                            />
+                                                        <CoinRows
+                                                            symbol={symbol}
+                                                            handleSymbolUpdate={handleSymbolUpdate}
+                                                            handleSaveCoin={handleSaveCoin}
+                                                            handleDeleteCoin={handleDeleteCoin}
+                                                            openModal={openModal}
+                                                            commonPremiumSource={commonPremiumSource}
+                                                            rowSaveId={actionLoading?.rowSaveId}
+                                                        />
                                                         {/* </Tr> */}
                                                     </SortableRow>
                                                 ))

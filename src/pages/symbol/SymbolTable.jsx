@@ -295,7 +295,7 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                     <PrimaryButton onClick={() => openModal(false)}>
                         + Add New
                     </PrimaryButton>
-                    <ActionGroup>
+                   {symbols?.length > 0 && <ActionGroup>
                         <SecondaryButton
                             disabled={actionLoading.rateType}
                             onClick={() => changeRateType("exchange")}
@@ -320,7 +320,7 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                         >
                             {actionLoading.saveAll ? "Saving…" : "Save All"}
                         </SecondaryButton>
-                    </ActionGroup>
+                    </ActionGroup>}
 
                 </ActionBar>
 

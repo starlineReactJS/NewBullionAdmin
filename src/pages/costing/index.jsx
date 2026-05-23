@@ -33,10 +33,43 @@ const Costing = () => {
   const [rate, setRate] = useState([]);
   const subscriptionsRef = React.useRef({});
   const rateBufferRef = React.useRef({});
-  const lastUpdateRef = React.useRef(0);
+  const lastUpdateRef = React.useRef({});
   const THROTTLE_MS = 150;
   const { auth } = useAuth();
 
+  // const subscribeInstrument = (instrument) => {
+  //   if (!instrument || subscriptionsRef.current[instrument]) return;
+
+  //   const unsub = rateStore.subscribe(instrument, (r) => {
+  //     // 1️⃣ always keep latest tick
+  //     rateBufferRef.current[r.instrument] = r;
+
+  //     const now = Date.now();
+  //     if (now - lastUpdateRef.current < THROTTLE_MS) return;
+
+  //     lastUpdateRef.current = now;
+
+  //     // 2️⃣ flush buffered ticks
+  //     setRate((prev) => {
+  //       const updated = [...prev];
+
+  //       Object.values(rateBufferRef.current).forEach((tick) => {
+  //         const i = updated.findIndex((x) => x.instrument === tick.instrument);
+
+  //         if (i !== -1) {
+  //           updated[i] = tick;
+  //         } else {
+  //           updated.push(tick);
+  //         }
+  //       });
+
+  //       return updated;
+  //     });
+  //   });
+  //   subscriptionsRef.current[instrument] = unsub;
+  // };
+
+  
   const subscribeInstrument = (instrument) => {
     if (!instrument || subscriptionsRef.current[instrument]) return;
 
@@ -45,25 +78,24 @@ const Costing = () => {
       rateBufferRef.current[r.instrument] = r;
 
       const now = Date.now();
-      if (now - lastUpdateRef.current < THROTTLE_MS) return;
-
-      lastUpdateRef.current = now;
+      // if (now - lastUpdateRef.current  < THROTTLE_MS) return;
+      // lastUpdateRef.current = now;
+      if (lastUpdateRef.current[instrument] && now - lastUpdateRef.current[instrument] < THROTTLE_MS) return;
+      lastUpdateRef.current[instrument] = now;
 
       // 2️⃣ flush buffered ticks
       setRate((prev) => {
         const updated = [...prev];
-
-        Object.values(rateBufferRef.current).forEach((tick) => {
-          const i = updated.findIndex((x) => x.instrument === tick.instrument);
-
-          if (i !== -1) {
-            updated[i] = tick;
-          } else {
-            updated.push(tick);
-          }
-        });
-
-        return updated;
+        // Object.values(rateBufferRef.current).forEach((tick) => {
+        //   const i = updated.findIndex((x) => x.instrument === tick.instrument);
+        //   if (i !== -1) {
+        //     updated[i] = tick;
+        //   } else {
+        //     updated.push(tick);
+        //   }
+        // });
+        const allTicks = Object.values(rateBufferRef.current);
+        return allTicks;
       });
     });
     subscriptionsRef.current[instrument] = unsub;
