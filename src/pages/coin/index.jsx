@@ -73,8 +73,8 @@ const Coin = () => {
 
           {/* Common Premium Card */}
           {commonPremium?.length > 0 && 
-          <Card>
-            <CardBody>
+          <Card style={{padding:'10px'}}>
+            <CardBody style={{padding:0}}>
               <PremiumGrid>
                 {commonPremium.map((d, index, array) => (
                   <React.Fragment key={index}>

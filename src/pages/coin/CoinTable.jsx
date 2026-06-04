@@ -214,6 +214,9 @@ const CoinTable = memo(({ commonPremiumSource }) => {
     const handleChange = useCallback((e, premiumIndex = null) => {
         const { name, value, checked, type, files } = e.target;
         setCoinObj((prev) => {
+            const firstAvailableProduct = coins?.find(
+                (item) => item.uniqueId !== prev.uniqueId
+            );
             if (type === "file" && premiumIndex !== null) {
                 const images = Array.isArray(prev.images)
                     ? [...prev.images]
@@ -229,10 +232,20 @@ const CoinTable = memo(({ commonPremiumSource }) => {
                 return { ...prev, premium };
             }
 
+            // return {
+            //     ...prev,
+            //     [name]: type === "checkbox" ? checked : value,
+            //     ...(type === "radio" && { productType: value === "product" ? coins?.[0]?.uniqueId : null }),
+            // };
             return {
                 ...prev,
                 [name]: type === "checkbox" ? checked : value,
-                ...(type === "radio" && { productType: value === "product" ? coins?.[0]?.uniqueId : null }),
+                ...(type === "radio" && {
+                    productType:
+                        value === "product"
+                            ? firstAvailableProduct?.uniqueId || null
+                            : null,
+                }),
             };
         });
     }, [commonPremiumSource, coins]);

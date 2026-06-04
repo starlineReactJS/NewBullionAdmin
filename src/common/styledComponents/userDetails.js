@@ -30,7 +30,7 @@ export const SectionCard = styled.div`
 `;
 
 export const SectionTitle = styled.h5`
-  ${fluidType("h4")}
+  ${fluidType("label")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.textTableHeader};
@@ -141,7 +141,7 @@ export const FieldInput = styled.input`
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("h4")}
+  ${fluidType("label")}
   padding: 6px 9px;
   outline: none;
   transition: ${({ theme }) => theme.transition};
@@ -162,7 +162,7 @@ export const FieldTextArea = styled.textarea`
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("h4")}
+  ${fluidType("label")}
   padding: 6px 9px;
   outline: none;
   resize: vertical;
@@ -208,7 +208,7 @@ export const MarqueeGrid = styled.div`
 `;
 
 export const FieldLabel = styled.label`
-  ${fluidType("bodyLg")}
+  ${fluidType("bodyMd")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
   color: ${({ theme }) => theme.colors.textSecondary};

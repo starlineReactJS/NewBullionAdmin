@@ -69,7 +69,7 @@ const CellContent = styled.div`
   p {
     margin: 0;
     font-family: ${({ theme }) => theme.font.family};
-    ${fluidType("h4")}
+    ${fluidType("label")}
     color: ${({ theme }) => theme.colors.textPrimary};
   }
 `;

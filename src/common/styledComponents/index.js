@@ -166,11 +166,11 @@ const btnBase = css`
   border-radius: 6px;
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
-  ${fluidType("h4")}
+  ${fluidType("label")}
   cursor: pointer;
   transition: ${({ theme }) => theme.transition};
   white-space: nowrap;
-  padding: 8px 16px;
+  padding: 5px 16px;
 
   &:disabled {
     opacity: 0.5;
@@ -337,7 +337,7 @@ export const Thead = styled.thead``;
 
 export const Th = styled.th`
   color: ${({ theme }) => theme.colors.textTableHeader};
-  font-size: ${({ theme }) => theme.font.sizeMd};
+  font-size: ${({ theme }) => theme.font.sizeSm};
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -368,10 +368,11 @@ export const Td = styled.td`
   padding: 10px 12px;
   text-align: ${({ $align }) => $align || "center"};
   color: ${({ theme }) => theme.colors.textPrimary};
-  font-size: ${({ theme }) => theme.font.sizeXl};
+  font-size: ${({ theme }) => theme.font.sizeSm};
   vertical-align: middle;
   white-space: nowrap;
   min-width: ${({ $w }) => $w || 100};
+    border: 1px solid ${({ theme }) => theme.colors.border};  /* ← add this 
   &:first-child { padding-left: 16px; }
   &:last-child  { padding-right: 16px; }
 `;
@@ -535,7 +536,7 @@ export const CellText = styled.p`
   max-width: 260px;
   white-space: normal;
   word-break: break-word;
-  ${fluidType("h4")};
+  ${fluidType("label")};
   text-align: center;
 
 `;

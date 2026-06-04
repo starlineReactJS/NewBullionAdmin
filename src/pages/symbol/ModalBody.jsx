@@ -164,9 +164,16 @@ const RenderField = ({ field, symbolObj, handleChange, symbols }) => {
         case "productTypeSelect":
             return (
                 <FieldSelect name="productType" value={value} onChange={handleChange}>
-                    {symbols?.map((d, i) => (
+                    {/* {symbols?.map((d, i) => (
                         <option key={i} value={d.uniqueId}>{d.name}</option>
-                    ))}
+                    ))} */}
+                    {symbols?.length > 1 ? symbols
+                        ?.filter((d) => d.uniqueId !== symbolObj?.uniqueId)
+                        .map((d) => (
+                            <option key={d.uniqueId} value={d.uniqueId}>
+                                {d.name}
+                            </option>
+                        )): <option>No products found</option>}
                 </FieldSelect>
             );
 

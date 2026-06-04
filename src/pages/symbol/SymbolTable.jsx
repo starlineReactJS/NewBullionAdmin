@@ -200,15 +200,36 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
         }
     };
 
+    // const handleChange = (e) => {
+    //     const { name, value, checked, type } = e.target;
+    //     setSymbolObj((prev) => ({
+    //         ...prev,
+    //         [name]: type === "checkbox" ? checked : value,
+    //         ...(type === "radio" && {
+    //             productType: value === "product" ? symbols?.[0]?.uniqueId : null,
+    //         }),
+    //     }));
+    // };
+
     const handleChange = (e) => {
         const { name, value, checked, type } = e.target;
-        setSymbolObj((prev) => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value,
-            ...(type === "radio" && {
-                productType: value === "product" ? symbols?.[0]?.uniqueId : null,
-            }),
-        }));
+
+        setSymbolObj((prev) => {
+            const firstAvailableProduct = symbols?.find(
+                (item) => item.uniqueId !== prev.uniqueId
+            );
+
+            return {
+                ...prev,
+                [name]: type === "checkbox" ? checked : value,
+                ...(type === "radio" && {
+                    productType:
+                        value === "product"
+                            ? firstAvailableProduct?.uniqueId || null
+                            : null,
+                }),
+            };
+        });
     };
 
     const handleDeleteSymbol = useCallback((id) => {
@@ -295,7 +316,7 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                     <PrimaryButton onClick={() => openModal(false)}>
                         + Add New
                     </PrimaryButton>
-                   {symbols?.length > 0 && <ActionGroup>
+                    {symbols?.length > 0 && <ActionGroup>
                         <SecondaryButton
                             disabled={actionLoading.rateType}
                             onClick={() => changeRateType("exchange")}
@@ -344,7 +365,7 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                             ) : (
                                 <>
                                     <Thead>
-                                        <Tr  $alt={true}>
+                                        <Tr $alt={true}>
                                             {COLUMNS.map((col) => (
                                                 <Th key={col.label} $align={col.align} style={col.width ? { width: col.width } : {}}>
                                                     {col.label}

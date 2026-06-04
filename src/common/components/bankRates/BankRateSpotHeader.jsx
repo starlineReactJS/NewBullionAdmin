@@ -16,7 +16,7 @@ const EmptyHeaderTh = styled(HeaderTh)`
 
 const ProductName = styled.strong`
   display: block;
-  ${fluidType("bodySm")}
+  ${fluidType("label")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.textPrimary};
@@ -33,7 +33,7 @@ const SpotSelect = styled.select`
   border-radius: ${({ theme }) => theme.radius.sm};
 color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("bodyLg")}
+  ${fluidType("label")}
   font-weight: ${({ theme }) => theme.font.weightMedium};
   padding: 4px 6px;
   cursor: pointer;
@@ -53,7 +53,7 @@ color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 const SpotValue = styled.p`
-  ${fluidType("bodySm")}
+  ${fluidType("label")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.textPrimary};

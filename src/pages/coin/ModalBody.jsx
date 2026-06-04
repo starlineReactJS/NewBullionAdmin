@@ -21,7 +21,7 @@ import {
     RadioLabel,
     FormFooter,
 } from "../../common/styledComponents/modal";
-import { fluidType,PrimaryButton } from "../../common/styledComponents";
+import { fluidType, PrimaryButton } from "../../common/styledComponents";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Local styles
@@ -167,9 +167,13 @@ const RenderField = ({ field, coinObj, handleChange, coins }) => {
         case "productTypeSelect":
             return (
                 <FieldSelect name="productType" value={value} onChange={handleChange}>
-                    {coins?.map((d, i) => (
-                        <option key={i} value={d.uniqueId}>{d.name}</option>
-                    ))}
+                    {coins?.length > 1 ? coins
+                        ?.filter((d) => d.uniqueId !== coinObj?.uniqueId)
+                        .map((d) => (
+                            <option key={d.uniqueId} value={d.uniqueId}>
+                                {d.name}
+                            </option>
+                        )) : <option>No coins found</option>}
                 </FieldSelect>
             );
 

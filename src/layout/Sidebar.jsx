@@ -334,7 +334,7 @@ const Sidebar = ({ open, onNavigate }) => {
 
   const handleNavigate = (path) => {
     navigate(path);
-    onNavigate?.(); // close mobile drawer if provided
+    // onNavigate?.(); // close mobile drawer if provided
   };
 
   const onMenuClick = (menu, e) => {

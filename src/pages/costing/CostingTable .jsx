@@ -57,7 +57,7 @@ const LabelTd = styled(Td)`
   text-align: left;
   padding-left: 14px;
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("h4")}
+  ${fluidType("label")}
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
   color: ${({ theme }) => theme.colors.textPrimary};
   white-space: nowrap;
@@ -90,7 +90,7 @@ const SpotSelect = styled.select`
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
-  ${fluidType("h4")}
+  ${fluidType("label")}
   font-weight: ${({ theme }) => theme.font.weightMedium};
   padding: 4px 6px;
   cursor: pointer;
@@ -110,7 +110,7 @@ const SpotSelect = styled.select`
 `;
 
 const SpotValue = styled.p`
-  ${fluidType("bodySm")}
+  ${fluidType("label")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.textPrimary};;

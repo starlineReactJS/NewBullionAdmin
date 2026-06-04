@@ -95,7 +95,7 @@ const Symbol = () => {
           {/* Common Premium Card */}
           {commonPremium?.length > 0 &&
             <>
-              <Card>
+              <Card style={{padding:'10px'}}>
                 {/* <CardHeader>
                 <div>
                   <PageTitle>Common Premium</PageTitle>
@@ -109,7 +109,7 @@ const Symbol = () => {
                   </PrimaryButton>
                 </SubmitRow>
               </CardHeader> */}
-                <CardBody>
+                <CardBody style={{padding:'0'}}>
                   <PremiumGrid>
                     {commonPremium.map((d, index, array) => (
                       <React.Fragment key={index}>

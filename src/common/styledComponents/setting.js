@@ -59,7 +59,7 @@ export const RefTr = styled.tr`
 
 export const RefTd = styled.td`
   padding: 4px 6px;
-  ${fluidType("bodySm")}
+  ${fluidType("label")}
   color: ${({ theme }) => theme.colors.textPrimary};
   vertical-align: middle;
 `;
@@ -67,6 +67,8 @@ export const RefTd = styled.td`
 export const RefInput = styled(Input)`
   width: 100%;
   text-align: left;
+  ${fluidType("label")}
+
 `;
 
 export const EmptyRow = styled.tr`

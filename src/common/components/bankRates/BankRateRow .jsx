@@ -19,6 +19,7 @@ const BankInput = styled(Input)`
   width: 100%;
   min-width: 70px;
   text-align: center;
+   ${fluidType("label")}
 `;
 
 // Reuse shared Select pattern
@@ -29,7 +30,7 @@ const BankSelect = styled.select`
   border-radius: ${({ theme }) => theme.radius.sm};
   color: ${({ theme }) => theme.colors.textPrimary};
   font-family: ${({ theme }) => theme.font.family};
- ${fluidType("bodyLg")}
+ ${fluidType("label")}
   font-weight: ${({ theme }) => theme.font.weightMedium};
   padding: 4px 6px;
   outline: none;
@@ -45,7 +46,7 @@ const BankSelect = styled.select`
 `;
 
 const InrValue = styled.p`
-  ${fluidType("bodyLg")}
+  ${fluidType("label")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.primary};
@@ -54,7 +55,7 @@ const InrValue = styled.p`
 `;
 
 const TotalValue = styled.h6`
-  ${fluidType("body")}
+  ${fluidType("label")}
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   color: ${({ theme }) => theme.colors.textPrimary};
@@ -68,6 +69,7 @@ const SubmitBtn = styled(PrimaryButton)`
   padding: 6px 10px;
   font-size: ${({ theme }) => theme.font.sizeLg};
   margin: 4px 0;
+  ${fluidType("label")}
 `;
 
 const CellInner = styled.div`
