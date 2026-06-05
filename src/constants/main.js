@@ -25,15 +25,15 @@ export const routePermissionKeyMap = {
 };
 
 export const contractOptions = [
-    { label: "Past Bid Ask", value: "III|BA" },
-    { label: "Past Ask", value: "III|A" },
-    { label: "Past Bid", value: "III|B" },
     { label: "Current Bid Ask", value: "I|BA" },
     { label: "Current Ask", value: "I|A" },
     { label: "Current Bid", value: "I|B" },
     { label: "Future Bid Ask", value: "II|BA" },
     { label: "Future Ask", value: "II|A" },
     { label: "Future Bid", value: "II|B" },
+    { label: "Past Bid Ask", value: "III|BA" },
+    { label: "Past Ask", value: "III|A" },
+    { label: "Past Bid", value: "III|B" },
 ];
 
 export const bankOptions = [

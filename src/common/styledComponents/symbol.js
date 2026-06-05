@@ -143,6 +143,7 @@ export const BankCardHeader = styled(CardHeader)`
   border-bottom: none;
   border-radius: ${({ theme }) => theme.radius.lg}
     ${({ theme }) => theme.radius.lg} 0 0;
+    padding:5px 24px;
 `;
 
 export const BankTitle = styled(PageTitle)`
@@ -167,6 +168,7 @@ export const LabelTd = styled(Td)`
   min-width: 90px;
   text-align: left;
   padding-left: 14px;
+  padding: 5px 0 5px 14px;
   font-family: ${({ theme }) => theme.font.family};
   ${fluidType("label")}
   font-weight: ${({ theme }) => theme.font.weightSemiBold};
@@ -177,5 +179,5 @@ export const LabelTd = styled(Td)`
 `;
 
 export const DiffWrapper = styled.div`
-  padding: ${({ theme }) => theme.spacing.md};
+  padding: 0;
 `;

@@ -58,7 +58,7 @@ const ContentArea = styled.main`
   overflow-x: hidden;
   background: ${({ theme }) => theme.colors.bgContent};
   transition: background 0.25s ease;
-  padding: ${({ theme }) => theme.spacing.lg};
+  padding: 10px;
 
   @media (max-width: 768px) {
     padding: ${({ theme }) => theme.spacing.md};

@@ -8,7 +8,9 @@ import {
   PrimaryButton,
   Checkbox,
 } from "../../common/styledComponents";
-import {SettingsGrid,Panel,PanelTitle,PanelBody,PanelFooter,RefTable,RefTr,RefTd,RefInput,EmptyRow,PwdTable,PwdLabel,PwdFieldTd,PwdLabelTd,PwdInput,RateTable,RateTr,RateLabelTd,RateInputTd,DisabledInput,RateInput  } from "../../common/styledComponents/setting"
+import { SettingsGrid, Panel, PanelTitle, PanelBody, PanelFooter, RefTable, RefTr, RefTd, RefInput, EmptyRow, PwdTable, PwdLabel, PwdFieldTd, PwdLabelTd, PwdInput, RateTable, RateTr, RateLabelTd, RateInputTd, DisabledInput, RateInput } from "../../common/styledComponents/setting";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 
 const passwordObj = {
@@ -18,6 +20,8 @@ const passwordObj = {
 };
 
 const Setting = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const subscribeData = useContext(sourceContext);
   const [reference, setReference] = useState([]);
   const [stepNotification, setStepNotification] = useState([]);
@@ -140,8 +144,10 @@ const Setting = () => {
             ...prev,
             password: false
           }));
-          toastFn('success', result?.message || "Password change successfully");
+          toastFn('success', "Password changed successfully. Please log in again.");
           setPassword({ ...passwordObj });
+          logout();
+          navigate("/login");
         }
       } catch (error) {
         console.error("Login error:", error);

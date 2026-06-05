@@ -38,6 +38,7 @@ import {
     Td,
     EmptyStateWrapper,
 } from "../../common/styledComponents";
+import { contractOptions } from "../../constants/main";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Local styles
@@ -228,6 +229,9 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                             ? firstAvailableProduct?.uniqueId || null
                             : null,
                 }),
+                ...(name === "instrument" && {
+                    contract: `${value.toUpperCase()}_${contractOptions[0].value}`,
+                }),
             };
         });
     };
@@ -262,7 +266,7 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                         commonPremiumSource?.length > 0
                             ? commonPremiumSource[0]?.value
                             : null,
-                    contract: "GOLD_III|BA",
+                    contract: `GOLD_${contractOptions[0].value}`,
                 });
                 setPopupData({ isShow: true, class: "", isEdit: false });
             }

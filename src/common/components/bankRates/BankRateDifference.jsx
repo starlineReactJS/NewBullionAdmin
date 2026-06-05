@@ -6,7 +6,7 @@ import { fluidType } from "../../styledComponents";
 
 
 const DiffSection = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.md};
+  margin-top: 0;
 `;
 
 const DiffTitle = styled.h6`
@@ -16,10 +16,10 @@ const DiffTitle = styled.h6`
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.weightBold};
   text-align: center;
-  padding: 8px ${({ theme }) => theme.spacing.md};
+  padding: 5px ${({ theme }) => theme.spacing.md};
   margin: 0 0 ${({ theme }) => theme.spacing.sm};
-  border-radius: ${({ theme }) => theme.radius.md}
-    ${({ theme }) => theme.radius.md} 0 0;
+  // border-radius: ${({ theme }) => theme.radius.md}
+  //   ${({ theme }) => theme.radius.md} 0 0;
   letter-spacing: 0.4px;
   text-transform: uppercase;
 `;
