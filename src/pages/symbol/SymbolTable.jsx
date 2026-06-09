@@ -105,6 +105,10 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
             toastFn("error", "Validation failed!");
             return false;
         }
+        else if (data?.rateType === "client" && !data?.identifier) {
+            toastFn("error", "Please enter identifier");
+            return false;
+        }
         return true;
     };
 
@@ -184,9 +188,13 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
     const handleEditClick = async () => {
         if (actionLoading.modalSave) return;
         if (!checkValidation(symbolObj)) return;
+        const payload = { ...symbolObj };
         setActionLoading((prev) => ({ ...prev, modalSave: true }));
+        if (!["product", "client"].includes(payload.rateType)) {
+            delete payload.identifier;
+        }
         try {
-            const response = await saveSymbolApiCall(symbolObj);
+            const response = await saveSymbolApiCall(payload);
             if (response?.success) {
                 toastFn("success", "Symbol edited successfully");
                 closeModel();
@@ -224,7 +232,7 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
                 ...prev,
                 [name]: type === "checkbox" ? checked : value,
                 ...(type === "radio" && {
-                    productType:
+                    identifier:
                         value === "product"
                             ? firstAvailableProduct?.uniqueId || null
                             : null,

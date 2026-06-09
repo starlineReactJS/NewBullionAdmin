@@ -41,7 +41,7 @@ const rowsForEditSymbolLeft = [
     { label: "Is Common Premium", name: "isCP", type: "checkbox" },
     { label: "Description", name: "description", type: "textarea" },
     { label: "Rate Type", name: "rateType", type: "rateTypeRadio" },
-    { label: "Product Type", name: "productType", type: "productTypeSelect" },
+    { label: "Product Type", name: "identifier", type: "productTypeSelect" },
     { label: "Identifier", name: "identifier", type: "text" },
 ];
 
@@ -163,7 +163,7 @@ const RenderField = ({ field, symbolObj, handleChange, symbols }) => {
 
         case "productTypeSelect":
             return (
-                <FieldSelect name="productType" value={value} onChange={handleChange}>
+                <FieldSelect name="identifier"  value={symbolObj?.identifier || ""} onChange={handleChange}>
                     {/* {symbols?.map((d, i) => (
                         <option key={i} value={d.uniqueId}>{d.name}</option>
                     ))} */}
@@ -214,7 +214,7 @@ const EditSymbolForm = ({ symbolObj, handleChange, handleEditClick, symbols, isS
                 <FormTableBody>
                     {rowsForEditSymbolLeft.map((field, i) => {
                         if (field.type === "productTypeSelect" && symbolObj?.rateType !== "product") return null;
-                        if (field.name === "identifier" && symbolObj?.rateType !== "client") return null;
+                        if (field.name === "identifier" &&  field.type === "text" && symbolObj?.rateType !== "client") return null;
                         return (
                             <FormRow
                                 key={i}

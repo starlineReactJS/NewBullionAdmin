@@ -14,15 +14,21 @@ export const isBankObjValid = (data = {}) => {
 };
 
 export const validateEmailMobile = (type, value) => {
-    let regex = type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/ : (type === "mobile" && /^\d{10}$/);
-    return regex.test(value);
+    const regex =
+        type === "email"
+            ? /^[a-zA-Z0-9]([a-zA-Z0-9._%+\-]*[a-zA-Z0-9])?@[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/
+            : type === "mobile"
+                ? /^\d{10}$/
+                : null;
+
+    return regex ? regex.test(value) : false;
 };
 
 export const validatePremium = (value) => {
     var isvalid = true;
 
     // const pattern = /^(?:-?\d+|--)$/;
-  const pattern = /^(--|-?\d+(?:\.\d+)?)$/;
+   const pattern = /^(--|-?\d+(?:\.\d+)?)$/;
 
     if (value !== "" && !pattern.test(value)) {
         isvalid = false;

@@ -87,7 +87,7 @@ export const useSymbolTable = ({
 
             failedCount === 0
                 ? toastFn("success", "All changes saved successfully")
-                : toastFn("error",`Save failures ${failedCount} symbol,Try again!`);
+                : toastFn("error", `Save failures ${failedCount} symbol,Try again!`);
 
             setSaveDataIds(new Set());
         } finally {
@@ -127,16 +127,21 @@ export const useSymbolTable = ({
         setActionLoading(prev => ({ ...prev, rateType: true }));
 
         try {
-            const promises = symbols.map(item =>
-                saveSymbolApiCall({ ...item, rateType: type })
-            );
+            const promises = symbols.map((item) => {
+                const { identifier, ...payload } = item;
+
+                return saveSymbolApiCall({
+                    ...payload,
+                    rateType: type,
+                });
+            });
 
             const results = await Promise.allSettled(promises);
             const failedCount = results.filter(r => r.status === "rejected").length;
 
             failedCount === 0
                 ? toastFn("success", "Rate type updated successfully")
-                : toastFn("error", `Failed ${failedCount} request,Try again!`)
+                : toastFn("error", `Failed ${failedCount} request,Try again!`);
 
             getSymbolData();
         } finally {
