@@ -36,9 +36,21 @@ const MarketWatch = () => {
     return acc;
   }, {});
 
+  const resolveInstrument = (p) => {
+    if (p.rt === "exchange" || p.rt === "product") {
+      return parseInstrumentAndSide(p.con);
+    }
+    if (p.rt === "client") {
+      return { instrument: p.idf, side: null };
+    }
+    return {
+      instrument: p.src === "silver" ? "SILVERSPOT_I" : "GOLDSPOT_I",
+      side: null,
+    };
+  };
   return (
     <>
-         <LiverateSocket />
+      <LiverateSocket />
       <PageWrapper>
         <Card>
           {/* ── Toolbar ── */}
@@ -56,16 +68,7 @@ const MarketWatch = () => {
             </Thead>
             <Tbody>
               {exchange.map((p, index) => {
-                const { instrument, side } =
-                  p.rt === "exchange"
-                    ? parseInstrumentAndSide(p.con)
-                    : {
-                      instrument:
-                        p.src === "silver"
-                          ? "SILVERSPOT_I"
-                          : "GOLDSPOT_I",
-                      side: null,
-                    };
+                const { instrument, side } = resolveInstrument(p);
                 return (
                   <ProductRows
                     key={index}

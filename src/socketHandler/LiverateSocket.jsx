@@ -9,7 +9,8 @@ import { parseInstrument } from "@/utils";
 export default function LiverateSocket() {
   const signalRContext = useContext(SignalRContext);
   const localStore = useSelector(store => store);
-  const subscribedSymbols = localStore?.socket.instruments?.map(i => i?.ins);
+  const subscribedSymbols = localStore?.socket.instruments?.filter(item => item?.isA)
+    ?.map(item => item?.ins);
 
   const onInstrument = (data) => {
     if (!data) return;
@@ -19,7 +20,7 @@ export default function LiverateSocket() {
   };
 
   useEffect(() => {
-    if (!signalRContext) return; 
+    if (!signalRContext) return;
     if (signalRContext.state === signalR.HubConnectionState.Connected && subscribedSymbols.length) {
       signalRContext.on(instrument, onInstrument);
       signalRContext.invoke(subscribeToRates, subscribedSymbols);

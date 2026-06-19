@@ -151,7 +151,15 @@ const SymbolTable = memo(({ commonPremiumSource }) => {
         try {
             const response = await getSymboldetail({ id });
             if (response?.success && response?.data) {
-                setSymbolObj({ ...response.data });
+                const sourceExists = commonPremiumSource.some(
+                    x => x.value === response.data.source
+                );
+                setSymbolObj({
+                    ...response.data, 
+                    source: sourceExists
+                        ? response.data.source
+                        : commonPremiumSource?.[0]?.value || ""
+                });
                 setPopupData({ isShow: true, class: "modal-xl", isEdit: true });
             } else {
                 setSymbolObj({});

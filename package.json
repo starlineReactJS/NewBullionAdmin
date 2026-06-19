@@ -13,6 +13,7 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@microsoft/signalr": "^10.0.0",
+    "@microsoft/signalr-protocol-msgpack": "^10.0.0",
     "@reduxjs/toolkit": "^2.11.2",
     "antd": "^6.3.7",
     "dayjs": "^1.11.20",

@@ -1,14 +1,20 @@
 
 export function parseInstrument(data) {
-    const p = data.split("|");
+    // const p = data.split("|");
 
     return {
-        instrument: p[0],
-        bid: Number(p[1]),
-        ask: Number(p[2]),
-        high: Number(p[3]),
-        low: Number(p[4]),
-        time: p[9]
+        // instrument: p[0],
+        // bid: Number(p[1]),
+        // ask: Number(p[2]),
+        // high: Number(p[3]),
+        // low: Number(p[4]),
+        // time: p[9]
+        instrument: data[0],
+        bid: Number(data[1]),
+        ask: Number(data[2]),
+        high: Number(data[3]),
+        low: Number(data[4]),
+        time: data[9]
     };
 }
 

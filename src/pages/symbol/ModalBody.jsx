@@ -163,7 +163,7 @@ const RenderField = ({ field, symbolObj, handleChange, symbols }) => {
 
         case "productTypeSelect":
             return (
-                <FieldSelect name="identifier"  value={symbolObj?.identifier || ""} onChange={handleChange}>
+                <FieldSelect name="identifier" value={symbolObj?.identifier || ""} onChange={handleChange}>
                     {/* {symbols?.map((d, i) => (
                         <option key={i} value={d.uniqueId}>{d.name}</option>
                     ))} */}
@@ -214,7 +214,7 @@ const EditSymbolForm = ({ symbolObj, handleChange, handleEditClick, symbols, isS
                 <FormTableBody>
                     {rowsForEditSymbolLeft.map((field, i) => {
                         if (field.type === "productTypeSelect" && symbolObj?.rateType !== "product") return null;
-                        if (field.name === "identifier" &&  field.type === "text" && symbolObj?.rateType !== "client") return null;
+                        if (field.name === "identifier" && field.type === "text" && symbolObj?.rateType !== "client") return null;
                         return (
                             <FormRow
                                 key={i}

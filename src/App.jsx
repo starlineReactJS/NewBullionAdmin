@@ -1,7 +1,8 @@
-import React, { Suspense, createContext, lazy, useEffect,useState } from "react";
+import React, { Suspense, createContext, lazy, useEffect, useState } from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { MessagePackHubProtocol } from "@microsoft/signalr-protocol-msgpack";
 import { ToastContainer } from "react-toastify";
-import { getSignalRUrl} from "../Config.jsx";
+import { getSignalRUrl } from "../Config.jsx";
 import NotFound from "./pages/notfound";
 import ProtectedRoute from "./layout/ProtectedRoute.jsx";
 import PageTitle from "./common/PageTitle.jsx";
@@ -20,7 +21,7 @@ const AdminBullionLayout = lazy(() => import("./layout/AdminBullionLayout"));
 export const SignalRContext = createContext();
 
 function App() {
-  const { auth: { permissions: userPermissions ,name:userName} } = useAuth();
+  const { auth: { permissions: userPermissions, name: userName } } = useAuth();
   const dispatch = useDispatch();
   const [signalRConnector, setSignalRConnector] = useState(null);
 
@@ -37,7 +38,7 @@ function App() {
             display: subAccessKey in permissions ? permissions[subAccessKey] : false
           };
         })
-        .filter(sub => sub.display); 
+        .filter(sub => sub.display);
       return {
         ...item,
         subMenu: updateSUB,
@@ -62,6 +63,7 @@ function App() {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
       })
+      .withHubProtocol(new MessagePackHubProtocol())
       .withAutomaticReconnect()
       .build();
 
@@ -144,7 +146,7 @@ function App() {
                               path={sub.path}
                               element={
                                 <>
-                                  <PageTitle title={sub.title ||" Bullion Admin"} />
+                                  <PageTitle title={sub.title || " Bullion Admin"} />
                                   {sub.element}
                                 </>
                               }

@@ -29,15 +29,16 @@ const getHighLow = (range, sellRate, attr) => {
 
 const ProductRows = React.memo(({ product, bank, instrument, side ,productMap,bankRateInfo}) => {
     const isRefProduct = product?.rt === "product";
-    const parentProduct  =isRefProduct ? productMap?.[product?.pt] : product;
-    const { instrument: parentInstrument, side: parentSide } =
-        isRefProduct
-            ? (
-                parentProduct?.rt === "bank"
-                    ? { instrument: parentProduct?.src === 'silver' ? 'SILVERSPOT_I' : 'GOLDSPOT_I', side: null }
-                    : parseInstrumentAndSide(parentProduct?.con)   
-            )
-            : { instrument, side }; 
+     const isClientProduct = product?.rt === 'client';
+    const parentProduct  =isRefProduct ? productMap?.[product?.idf] : product;
+      const { instrument: parentInstrument, side: parentSide } =
+    isRefProduct 
+      ? (
+        parentProduct?.rt === "bank"
+          ? { instrument: parentProduct?.src === 'silver' ? 'SILVERSPOT_I' : 'GOLDSPOT_I', side: null } // bank parent
+          : isClientProduct ? { instrument: parentProduct.idf, side: null } : parseInstrumentAndSide(parentProduct?.con)     // exchange/product parent
+      )
+      : { instrument, side }; // normal product
 
     const [row, setRow] = useState();
     const [range, setRange] = useState({ high: null, low: null });
