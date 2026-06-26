@@ -118,6 +118,12 @@ export default function AddProductBody({
                         onChange={handleChange}
                     />
                     
+                    <CommonForm.Text
+                        label="Product SKU"
+                        name="sku"
+                        value={newProduct.sku}
+                        onChange={handleChange}
+                    />
 
                     <CommonForm.TextArea
                         label="Description"
@@ -129,9 +135,9 @@ export default function AddProductBody({
 
                     <CommonForm.Checkbox
                         label="Display Product"
-                        checked={!!newProduct.isDisplay}
+                        checked={!!newProduct.isView}
                         onChange={(e) =>
-                            setNewProduct((prev) => ({ ...prev, isDisplay: e.target.checked }))
+                            setNewProduct((prev) => ({ ...prev, isView: e.target.checked }))
                         }
                     />
 

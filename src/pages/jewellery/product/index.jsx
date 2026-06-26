@@ -33,8 +33,8 @@ import {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PRODUCT_OBJ = {
-    isDisplay: false, productTypeId: "", categoryTypeId: "", subCategoryId: "",
-    name: "", description: "", file: "", productImage: [],
+    isView: false, productTypeId: "", categoryTypeId: "", subCategoryId: "",
+    name: "", description: "", file: "", sku: "", productImage: [],
     specification: { purity: "", price: "" },
 };
 const POPUP_OBJ = { showPopup: false, modalTitle: null, modelClass: "", isEdit: false };
@@ -55,7 +55,7 @@ const ViewImgBtn = styled(SecondaryButton)`
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Product = () => {
-      const { contentRef } = useOutletContext() || {};
+    const { contentRef } = useOutletContext() || {};
     const dispatch = useDispatch();
     const { auth: { permissions: userPermissions } } = useAuth();
     const permissions = flattenPermissions(userPermissions);
@@ -82,7 +82,7 @@ const Product = () => {
     const { columnOrder, visibleColumns, setVisibleColumns, activeId, setActiveId, handleDragEnd } =
         useColumnManager("product", APPROVE_COL);
     const { data: productLists, isLoading, setData, setReset } =
-        useInfiniteScroll(getProductDetail, request, 40,contentRef);
+        useInfiniteScroll(getProductDetail, request, 40, contentRef);
 
     const [newProduct, setNewProduct] = useState({ ...PRODUCT_OBJ });
     const [popUp, setPopUp] = useState({ ...POPUP_OBJ });
@@ -226,8 +226,9 @@ const Product = () => {
         if (parentId) formData.append("parentId", parentId);
 
         formData.append("name", newProduct.name);
-        formData.append("description", newProduct.description);
-        formData.append("isDisplay", String(!!newProduct.isDisplay));
+        formData.append("description", newProduct?.description?.length ? newProduct.description : "");
+        formData.append("sku", newProduct?.sku?.length ? newProduct.sku : "");
+        formData.append("isView", String(!!newProduct.isView));
 
         if (popUp?.isEdit) {
             formData.append("id", newProduct.id);
@@ -380,7 +381,7 @@ const Product = () => {
                         />
                     </ActionGroup>
                 </ActionBar>
-                    {renderTable(productLists)}
+                {renderTable(productLists)}
             </Card>
 
             {popUp?.showPopup && (

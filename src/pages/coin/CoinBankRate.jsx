@@ -18,6 +18,14 @@ import {
 } from "../../common/styledComponents";
 import { BankCard, BankCardHeader, BankTitle, BankTableWrapper, LabelTd, DiffWrapper } from "../../common/styledComponents/symbol";
 
+const goldSources = ["gold"];
+const goldSpots = ["GOLDSPOT_I", "GOLDCOMEX_I"];
+const goldExchange = ['GOLD_I', 'GOLD_II'];
+
+const silverSources = ["silver"];
+const silverSpots = ["SILVERSPOT_I", "SILVERCOMEX_I"];
+const silverExchange = ['SILVER_I', 'SILVER_II'];
+
 
 const CoinBankRate = () => {
   const bankRateSource = useMemo(
@@ -167,8 +175,19 @@ const CoinBankRate = () => {
             ...Object.fromEntries(
               Object.entries(item).map(([k, v]) => [k, v?.toString?.() ?? v]),
             ),
-            spot: metalDefaults.spot,
-            exchange: metalDefaults.exchange
+            spot:
+              (
+                (goldSources.includes(item.source) && goldSpots.includes(item.spot)) ||
+                (silverSources.includes(item.source) && silverSpots.includes(item.spot))
+              )
+                ? item.spot
+                : metalDefaults.spot,
+            exchange: (
+              (goldSources.includes(item.source) && goldExchange.includes(item.exchange)) ||
+              (silverSources.includes(item.source) && silverExchange.includes(item.exchange))
+            )
+              ? item.exchange
+              : metalDefaults.exchange
           };
         });
 
